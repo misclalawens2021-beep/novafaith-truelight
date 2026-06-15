@@ -1,0 +1,678 @@
+/* Reset de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background: #000; /* Fond noir de base pour éviter les flashs blancs lors du chargement de l'image */
+    scroll-behavior: smooth; /* Active le glissement en douceur ! */
+}
+
+/* =========================================
+   DESIGN DU MENU HAMBURGER
+========================================= */
+
+/* L'icône (les 3 barres) */
+.hamburger-menu {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    width: 35px;
+    height: 25px;
+    cursor: pointer;
+    z-index: 3000; /* Reste au-dessus de tout */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hamburger-menu span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Transformation en Croix (X) quand actif */
+.hamburger-menu.active span:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger-menu.active span:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+/* L'Overlay (Le menu plein écran) */
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9); /* Fond sombre */
+    backdrop-filter: blur(15px); /* Effet de flou */
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 2500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease-in-out;
+}
+
+/* Affichage de l'overlay */
+.nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Liens de navigation */
+.nav-links {
+    list-style: none;
+    text-align: center;
+}
+
+.nav-links li {
+    margin: 25px 0;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    letter-spacing: 8px; /* Petit effet d'écartement au survol */
+}
+
+/* Espacement pour le défilement (Scroll Margin) */
+#description, #product-grid, #contact-section, #mysocialmedia {
+    scroll-margin-top: 80px;
+}
+
+/* Ajoute cette règle pour éviter que le contenu ne soit collé tout en haut de l'écran après le clic */
+#description, 
+#product-grid,
+#contact-section,
+#mysocialmedia {
+    scroll-margin-top: 100px;   /* Laisse de l'espace en haut pour respirer */
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-around;
+    color: #555555;
+    
+}
+
+/* 1. On crée un calque fixe derrière tout le contenu */
+body::before {
+    content: "";
+    position: fixed; /* Reste bloqué par rapport à l'écran, pas à la page */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* On met l'image et le filtre sombre ici */
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                url('./img/Photo\ de\ M🇭🇹🙏.jpg \ ') no-repeat center center;
+    background-size: cover;
+    z-index: -1; /* Place l'image derrière ton texte et tes cartes */
+    
+    /* Pour éviter les saccades sur mobile */
+    will-change: transform; 
+}
+
+/* 2. On nettoie le body */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: '', sans-serif;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background: transparent; /* Très important : le fond est maintenant géré par le ::before */
+    opacity: 1; /* Etat par défaut */
+}
+
+main {
+    flex-grow: 1;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Ajoute ou remplace ces parties dans style.css --- */
+
+/* 1. Animation d'entrée pour tout le bloc central */
+header {
+    opacity: 0; 
+    transform: translateY(30px); /* Commence un peu plus bas */
+    animation: reveal 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.5s;
+}
+
+.description {
+    padding-left: 100px;
+    padding-right: 100px;  
+    margin-top: 75px;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+@media (max-width: 768px) {
+    .description{
+        padding-left: 300px;  
+        padding-right: 300px;
+    }
+}
+
+.etymologie {
+    font-weight: bold;
+    font-size: large;
+    padding-bottom: 30px;
+}
+
+@keyframes reveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 2. Animation de flottaison douce pour le logo */
+.nova img {
+    width: 100%;
+    max-width: 800px; /* Taille agrandie comme demandé */
+    height: auto;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); /* Ombre légère */
+    animation: float 6s ease-in-out infinite; /* Mouvement perpétuel */
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+@keyframes float {
+    0% { 
+        transform: translateY(0px); 
+    }
+    50% { 
+        transform: translateY(-15px); 
+    }
+    100% { 
+        transform: translateY(0px); 
+    }
+}
+
+/* Effet au survol amélioré */
+.nova img:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 10px 30px rgba(255,255,255,0.1)); /* Lueur discrète */
+}
+
+/* 3. Transition douce pour le bouton */
+.lm {
+    /* ... tes styles actuels ... */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 2px;
+}
+
+.lm:hover {
+    background-color: #fff;
+    color: #000;
+    transform: scale(1.1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+/* --- Taille du logo sur Ordinateur --- */
+.nova img {
+    width: 800px;
+    /* On passe de 400px à 600px pour un impact visuel fort */
+    max-width: 800px;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+    height: auto;
+    transition: transform 0.3s ease; /* Animation de zoom au survol */
+    animation: float 6s ease-in-out infinite;
+}
+
+/* --- Taille du logo sur tablette et mobile --- */
+@media (max-width: 768px) {
+    .nova img {
+        /* On passe de 250px à 350px pour qu'il reste lisible sur petit écran */
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nova img {
+        /* Pour les très petits téléphones */
+        max-width: 320px; 
+    }
+}
+
+.nova img:hover {
+    transform: scale(1.05);
+}
+
+.welcome-to {
+    margin-top: 75px;
+    margin-bottom: 75px;
+}
+
+.welcome-to h3 {
+    font-family: 'Saira', sans-serif;
+    font-size: 2rem; /* Taille fixe */
+    font-style: normal;
+    letter-spacing: 5px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.btn-container {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.lm {
+    padding: 15px 30px;
+    font-size: 1rem;
+    background-color: #fff; 
+    color: #000; 
+    border: none; 
+    cursor: pointer; 
+    font-weight: bold; 
+    border-radius: 5px;
+    transition: background 0.3s ease, color 0.3s;
+    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2)
+}
+
+.lm:hover {
+    background-color: #000;
+    color: #fff; 
+}
+
+/* --- SECTION RESPONSIVE --- */
+
+/* Pour les tablettes et mobiles (écran de moins de 768px) */
+@media (max-width: 768px) {
+    .nova img {
+        /* On passe de 500px à 700px pour qu'il reste imposant */
+        max-width: 700px; /* Le logo rétrécit sur mobile */
+        margin-bottom: 150px;
+        width: 90%; /* S'assure qu'il ne dépasse pas des bords du téléphone */
+        
+    }
+
+    .welcome-to {
+        margin-top: 50px; /* On réduit un peu les marges pour gagner de la place */
+        margin-bottom: 50px;
+    }
+
+    .welcome-to h3 {
+        font-size: 1.1rem;
+        letter-spacing: 3px;
+        margin-bottom: 150px;
+    }
+
+    .lm {
+        width: 75%; /* Le bouton prend plus de place en largeur pour être cliquable facilement */
+        padding: 20px;
+    }
+
+    .welcome-to {
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+    .nova img {
+        width: 600px;
+    }
+}
+
+/* Pour les tout petits téléphones (moins de 480px) */
+    @media (max-width: 480px) {
+        .nova img {
+        max-width: 380px;
+        width: 95%;
+        }
+
+        .welcome-to h3 {
+            font-size: 4rem; /* On réduit légèrement le texte "WELCOME TO" pour laisser de la place au logo */
+        }
+    }
+
+/* --- Styles spécifiques à la boutique --- */
+
+.shop-nav {
+    position: fixed; /* Reste bloqué à l'écran */
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    z-index: 1000; /* Passe au-dessus de tout le contenu */
+    pointer-events: none; /* Permet de cliquer à travers la barre sauf sur le bouton */
+    display: flex;
+    align-items: center;
+}
+
+.back-link {
+    pointer-events: auto; /* Réactive le clic sur le bouton lui-même */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1); /* Cercle discret */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.back-link img {
+    width: 30px;    /* Taille de ton chevron SVG */
+    height: auto;
+}
+
+.back-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+    border-color: white;
+}
+
+@media (max-width: 480px) {
+    .shop-nav {
+        padding: 15px;
+    }
+    .back-link {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.shop-page main {
+    padding-top: 80px;  /* Evite que le haut de la page soit caché sous le bouton fixe */
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minimax(280px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.4s ease, background 0.4s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.product-img-container img {
+    width: 100%;
+    max-width: 200px;
+    height: auto; 
+    margin-bottom: 20px;
+}
+
+.product-card h4 {
+    margin: 15px 0 5px 0; 
+    letter-spacing: 2px;
+}
+
+.product-card p {
+    margin-bottom: 20px; 
+    opacity: 0.8;
+    color: white;
+}
+
+/* Ajustement pour le responsive boutique */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 2fr;
+        padding-left: 200px;
+        padding-right: 200px;
+    }
+
+    .product-card {
+        margin: 0 auto;
+    }
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+}
+
+/* --- SECTION CONTACT RESPONSIVE --- */
+.contact-section {
+    padding: 80px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 800px; /* Largeur max pour ordinateur */
+    transition: transform 0.3s ease;
+}
+
+.contact-header h2 {
+    letter-spacing: 5px;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.contact-header p {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    color: white;
+}
+
+.separator {
+    width: 50px;
+    height: 2px;
+    background: grey;
+    margin: 0 auto 50px auto;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px; /* Espace entre Nom et Email */
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.contact-container input, 
+.contact-container textarea {
+    width: 100%;
+    padding: 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.contact-container input:focus, 
+.contact-container textarea:focus {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+/* --- MEDIA QUERIES (Le coeur du responsive) --- */
+
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column; /* Empile Nom et Email verticalement sur tablette/mobile */
+        gap: 0;
+    }
+    
+    .contact-container {
+        padding: 30px 20px;
+        margin: 0 10px;
+    }
+
+    .contact-header h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-section {
+        padding: 50px 15px;
+    }
+    
+    .contact-container input, 
+    .contact-container textarea {
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Conteneur de la barre (fond vide) */
+.progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px; /* Très discret */
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 2000; /* Doit être au-dessus de tout, même de la nav */
+}
+
+/* La barre qui se remplit */
+.progress-bar {
+    height: 4px;
+    background: #ffffff; /* Couleur blanche pour rester minimaliste */
+    width: 0%; /* Départ à zéro */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Effet de lueur divine */
+    transition: width 0.1s ease-out;
+}
+
+.rs-links {
+    padding: 50px;
+    display: flex;             /* Active le mode horizontal */
+    flex-direction: column;    /* Garde le titre au-dessus */
+    align-items: center;       /* Centre le tout horizontalement */
+    gap: 30px;                 /* Espace entre le titre et les boutons */
+}
+
+.rs-links h2 {
+    padding-bottom: 50px;
+}
+
+/* Nouveau conteneur pour les boutons uniquement */
+.rs-container {
+    display: flex;             /* Aligne les boutons côte à côte */
+    flex-direction: row;       /* Force l'alignement horizontal */
+    justify-content: center;   /* Centre les boutons */
+    gap: 20px;                 /* Espace entre chaque bouton */
+    flex-wrap: wrap;           /* Permet de passer à la ligne sur petit mobile */
+}
+
+.rs-btn {
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    bottom: 30px;
+    right: 30px;
+    width: 100px;
+    height: 100px;
+}
+
+footer {
+    padding: 20px;
+    font-size: 0.9rem;
+}
+
+
+
+/* --- Bouton Retour en Haut --- */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0; /* Caché par défaut */
+    visibility: hidden;
+    transition: all 0.4s ease;
+}
+
+.back-to-top img {
+    width: 25px;
+    transform: rotate(90deg); /* Oriente le chevron vers le haut */
+    filter: brightness(1.5);
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px); /* Petit bond au survol */
+    border-color: white;
+}
+
+/* Ajustement mobile */
+@media (max-width: 480px) {
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
