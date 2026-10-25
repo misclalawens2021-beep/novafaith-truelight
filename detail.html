@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | NovaFaith</title>
+    <link rel="shortcut icon" href="./assets/img/IMG_3153.PNG" type="image/x-icon">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Saira:wght@300;600&display=swap">
+</head>
+<body class="checkout-page">
+
+    <nav class="site-nav">
+        <a href="index.html" class="nav-logo" aria-label="NovaFaith - Home">
+            <img src="./assets/img/Snapchat-1167800444.jpg" alt="NovaFaith">
+        </a>
+        <a href="index.html#product-grid" class="nav-back">&larr; Continue shopping</a>
+    </nav>
+
+    <main>
+        <h1 class="checkout-title">Checkout</h1>
+
+        <div id="empty-cart" class="checkout-empty" hidden>
+            <p>Your cart is empty.</p>
+            <a href="index.html#product-grid" class="lm">Back to the collection</a>
+        </div>
+
+        <div id="confirmation" class="checkout-empty" hidden>
+            <h2>Thank you for your order!</h2>
+            <p>Order <strong id="order-number"></strong> has been placed. God bless you!</p>
+            <a href="index.html" class="lm">Back to home</a>
+        </div>
+
+        <div class="checkout-layout" id="checkout-layout" hidden>
+            <form id="checkout-form" class="checkout-form" novalidate>
+
+                <section class="co-block">
+                    <h2>1. Your items</h2>
+                    <div id="cart-items"></div>
+                </section>
+
+                <section class="co-block">
+                    <h2>2. Shipping address</h2>
+                    <div class="co-grid">
+                        <input type="text" id="fullname" placeholder="Full name" autocomplete="name" required>
+                        <input type="email" id="co-email" placeholder="Email" autocomplete="email" required>
+                        <input type="text" id="address" class="span-2" placeholder="Address" autocomplete="street-address" required>
+                        <input type="text" id="zip" placeholder="Postal code" autocomplete="postal-code" required>
+                        <input type="text" id="city" placeholder="City" autocomplete="address-level2" required>
+                        <input type="text" id="country" class="span-2" placeholder="Country" autocomplete="country-name" required>
+                    </div>
+                </section>
+
+                <section class="co-block">
+                    <h2>3. Payment</h2>
+                    <div class="co-grid">
+                        <input type="text" id="card-name" class="span-2" placeholder="Name on card" autocomplete="cc-name" required>
+                        <input type="text" id="card-number" class="span-2" placeholder="Card number" inputmode="numeric" autocomplete="cc-number" maxlength="23" required>
+                        <input type="text" id="card-exp" placeholder="MM/YY" inputmode="numeric" autocomplete="cc-exp" maxlength="5" required>
+                        <input type="text" id="card-cvc" placeholder="CVC" inputmode="numeric" autocomplete="cc-csc" maxlength="4" required>
+                    </div>
+                    <p class="co-note">Demo checkout: no real payment is made and card details are never stored.</p>
+                </section>
+
+                <div id="co-error" class="co-error" role="alert"></div>
+            </form>
+
+            <aside class="co-summary">
+                <h2>Order summary</h2>
+                <div class="sum-row"><span>Items</span><span id="sum-items">0.00 €</span></div>
+                <div class="sum-row"><span>Shipping</span><span id="sum-ship">0.00 €</span></div>
+                <div class="sum-row total"><span>Total</span><span id="sum-total">0.00 €</span></div>
+                <p class="co-note" id="ship-note"></p>
+                <button type="submit" form="checkout-form" class="lm" id="place-order">PLACE YOUR ORDER</button>
+            </aside>
+        </div>
+    </main>
+
+    <footer>NovaFaith (2026) - All rights reserved.</footer>
+    <script src="./assets/detail.js"></script>
+</body>
+</html>
