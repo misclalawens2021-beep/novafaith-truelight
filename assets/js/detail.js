@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Il faut un compte pour commander : sinon on passe par la page d'authentification
+    let session = null;
+    try { session = JSON.parse(localStorage.getItem('novafaith-session')); } catch {}
+    if (!session || !session.email) {
+        window.location.replace('auth.html?next=detail.html');
+        return;
+    }
+
     const CART_KEY = 'novafaith-cart';
     const FREE_SHIPPING_FROM = 100; // livraison offerte dès 100 €
     const SHIPPING_FEE = 4.9;
@@ -117,6 +125,10 @@ document.addEventListener('DOMContentLoaded', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 1500);
     });
+
+    // Préremplit nom et e-mail avec le compte connecté
+    if (session.name) document.getElementById('fullname').value = session.name;
+    document.getElementById('co-email').value = session.email;
 
     render();
 });

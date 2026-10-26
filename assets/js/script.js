@@ -2,10 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Panier : stocké dans le navigateur, puis redirection vers la page de paiement
     const CART_KEY = 'novafaith-cart';
     const readCart = () => {
-        try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; }
+        try {
+            const c = JSON.parse(localStorage.getItem(CART_KEY));
+            return Array.isArray(c) ? c : [];
+        } catch { return []; }
     };
     const cartBadge = document.getElementById('cart-count');
-    if (cartBadge) cartBadge.textContent = readCart().reduce((n, i) => n + i.qty, 0);
+    if (cartBadge) cartBadge.textContent = readCart().reduce((n, i) => n + (i.qty || 0), 0);
 
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', () => {
@@ -15,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (item) item.qty++;
             else cart.push({ id, name, price: parseFloat(price), img, qty: 1 });
             try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch {}
-            window.location.href = 'checkout.html';
+            window.location.href = 'detail.html';
         });
     });
 
@@ -110,5 +113,75 @@ document.addEventListener('DOMContentLoaded', () => {
         backToTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+    }
+
+
+    // 5. Lien actif dans la navbar (selon la section visible)
+    const navAnchors = document.querySelectorAll('.nav-inline a[href^="#"]');
+    const sections = [...navAnchors].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    if (sections.length && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+            });
+        }, { rootMargin: '-40% 0px -50% 0px' });
+        sections.forEach(sec => observer.observe(sec));
+    }
+
+    // 6. Diaporama (auto, points, swipe)
+    const slider = document.getElementById('about-slider');
+    if (slider) {
+        const slides = [...slider.querySelectorAll('.slide')];
+        const dotsBox = slider.querySelector('.slider-dots');
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let index = 0, timer = null, touchX = null;
+
+        const go = i => {
+            index = (i + slides.length) % slides.length;
+            slides.forEach((s, k) => s.classList.toggle('active', k === index));
+            dots.forEach((d, k) => d.classList.toggle('active', k === index));
+        };
+        const stop = () => clearInterval(timer);
+        const start = () => { stop(); if (slides.length > 1 && !reduceMotion) timer = setInterval(() => go(index + 1), 5000); };
+
+        const dots = slides.map((_, i) => {
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.setAttribute('aria-label', 'Image ' + (i + 1));
+            b.addEventListener('click', () => { go(i); start(); });
+            dotsBox.appendChild(b);
+            return b;
+        });
+
+
+        if (slides.length < 2) dotsBox.hidden = true;
+
+        slider.addEventListener('mouseenter', stop);
+        slider.addEventListener('mouseleave', start);
+        slider.addEventListener('focusin', stop);
+        slider.addEventListener('focusout', start);
+
+        slider.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; stop(); }, { passive: true });
+        slider.addEventListener('touchend', e => {
+            if (touchX !== null) {
+                const dx = e.changedTouches[0].clientX - touchX;
+                if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
+            }
+            touchX = null;
+            start();
+        });
+
+        go(0);
+        start();
+    }
+
+    // 7. Compte : affiche le prénom dans la navbar si l'utilisateur est connecté
+    const accountLabel = document.getElementById('account-label');
+    if (accountLabel) {
+        try {
+            const session = JSON.parse(localStorage.getItem('novafaith-session'));
+            if (session && session.name) accountLabel.textContent = session.name.split(' ')[0];
+        } catch {}
     }
 });

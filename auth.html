@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account | NovaFaith</title>
+    <link rel="icon" href="./assets/img/IMG_3153.PNG" type="image/png">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Saira:wght@300;600&display=swap">
+</head>
+<body class="checkout-page auth-page">
+
+    <nav class="site-nav">
+        <a href="index.html" class="nav-logo" aria-label="NovaFaith - Home">
+            <img src="./assets/img/novafaith_logo.jpg" alt="NovaFaith">
+        </a>
+        <span class="nav-sep"></span>
+        <a href="index.html#product-grid" class="nav-back"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg><span>Continue shopping</span></a>
+    </nav>
+
+    <main>
+        <h1 class="checkout-title">Account</h1>
+
+        <!-- Utilisateur déjà connecté -->
+        <section class="co-block" id="auth-logged" hidden>
+            <h2 id="auth-welcome"></h2>
+            <p class="co-note" id="auth-email"></p>
+            <div class="auth-actions">
+                <a href="index.html#product-grid" class="lm">Continue shopping</a>
+                <button type="button" class="lm" id="logout-btn">LOG OUT</button>
+            </div>
+        </section>
+
+        <!-- Connexion / création de compte -->
+        <div id="auth-forms">
+            <div class="auth-tabs" role="tablist">
+                <button type="button" id="tab-login" class="active" role="tab" aria-selected="true">Log in</button>
+                <button type="button" id="tab-register" role="tab" aria-selected="false">Create account</button>
+            </div>
+
+            <form id="login-form" class="checkout-form auth-form co-block" novalidate>
+                <h2>Log in</h2>
+                <input type="email" id="login-email" placeholder="Email" autocomplete="email" required>
+                <input type="password" id="login-password" placeholder="Password" autocomplete="current-password" data-pw required>
+                <label class="auth-show"><input type="checkbox" class="show-pw"> Show password</label>
+                <div class="co-error" id="login-error" role="alert"></div>
+                <button type="submit" class="lm">LOG IN</button>
+            </form>
+
+            <form id="register-form" class="checkout-form auth-form co-block" novalidate hidden>
+                <h2>Create your account</h2>
+                <input type="text" id="reg-name" placeholder="Full name" autocomplete="name" required>
+                <input type="email" id="reg-email" placeholder="Email" autocomplete="email" required>
+                <input type="password" id="reg-password" placeholder="Password" autocomplete="new-password" data-pw required>
+                <input type="password" id="reg-confirm" placeholder="Confirm password" autocomplete="new-password" data-pw required>
+                <label class="auth-show"><input type="checkbox" class="show-pw"> Show passwords</label>
+                <p class="co-note">At least 8 characters, with a letter and a number.</p>
+                <div class="co-error" id="register-error" role="alert"></div>
+                <button type="submit" class="lm">CREATE ACCOUNT</button>
+            </form>
+
+            <p class="co-note auth-demo">Demo: accounts are stored in this browser only. Passwords are never saved in clear text.</p>
+        </div>
+    </main>
+
+    <footer>NovaFaith (2026) - All rights reserved.</footer>
+    <script src="./assets/js/auth.js"></script>
+</body>
+</html>

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NovaFaith True Light</title>
-    <link rel="shortcut icon" href="./assets/img/IMG_3153.PNG" type="image/x-icon">
-    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="icon" href="./assets/img/truelight_logo.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Saira:wght@300;600&display=swap">
 </head>
 <body>
@@ -18,20 +18,26 @@
     <!-- Barre de navigation (logo + liens) -->
     <nav class="site-nav">
         <a href="#home" class="nav-logo" aria-label="NovaFaith - Home">
-            <img src="./assets/img/Snapchat-1167800444.jpg" alt="NovaFaith">
+            <img src="/assets/img/truelight_logo.jpg" style="font-size: 10px;" alt="NovaFaith">
         </a>
 
+        <span class="nav-sep"></span>
+
         <ul class="nav-inline">
-            <li><a href="#description">What is NovaFaith ?</a></li>
-            <li><a href="#product-grid">The NovaFaith Collection</a></li>
-            <li><a href="#contact-section">Contact Me</a></li>
-            <li><a href="#mysocialmedia">#mysocialmedia</a></li>
+            <li><a href="#description" title="What is NovaFaith ?"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span class="nav-text">What is NovaFaith ?</span></a></li>
+            <li><a href="#product-grid" title="The NovaFaith Collection"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="nav-text">The NovaFaith Collection</span></a></li>
+            <li><a href="#contact-section" title="Contact Me"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg><span class="nav-text">Contact Me</span></a></li>
+            <li><a href="#mysocialmedia" title="#mysocialmedia"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/></svg><span class="nav-text">#mysocialmedia</span></a></li>
         </ul>
 
-        <a href="detail.html" class="cart-link">Cart (<span id="cart-count">0</span>)</a>
+        <span class="nav-sep"></span>
+
+        <a href="auth.html" class="account-link" id="account-link" title="Account"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg><span id="account-label">Log in</span></a>
+
+        <a href="detail.html" class="cart-link"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg><span>Cart (<span id="cart-count">0</span>)</span></a>
 
         <!-- Menu mobile -->
-        <div class="hamburger-menu" id="hamburger">
+        <div class="hamburger-menu" id="hamburger" role="button" aria-label="Menu" tabindex="0">
             <span></span>
             <span></span>
             <span></span>
@@ -45,6 +51,7 @@
             <li><a href="#product-grid">The NovaFaith Collection</a></li>
             <li><a href="#contact-section">Contact Me</a></li>
             <li><a href="#mysocialmedia">#mysocialmedia</a></li>
+            <li><a href="auth.html">Account</a></li>
         </ul>
     </div>
 
@@ -54,20 +61,18 @@
             <h3 class="hero-welcome">WELCOME TO</h3>
 
             <div class="nova">
-                <img src="./assets/img/Snapchat-1167800444.jpg" alt="NovaFaith" id="main-logo">
-            </div>
-
-            <div class="btn-container">
-                <a href="#product-grid" class="lm" id="shop-button">View Shop</a>
+                <img src="./assets/img/novafaith_logo.jpg" alt="NovaFaith" id="main-logo">
             </div>
         </section>
 
         <!-- Présentation + boutique -->
         <section class="shop">
             <div class="welcome-to">
-                <img src="./assets/img/PDFReader_20260722_1627.pdf" alt="" style="width: 800px; max-width: 100%; height: auto; margin-bottom: 27px;">
+                <!-- Une balise <img> ne peut pas afficher un PDF : exporte-le en PNG/JPG puis remets la balise
+                <img src="./assets/img/TON_IMAGE.png" alt="" style="width: 800px; max-width: 100%; height: auto; margin-bottom: 27px;"> -->
                 <div class="separator"></div>
                 <h2>What is NovaFaith ?</h2>
+                <div class="about">
                 <div class="description" id="description">
                     <div class="etymologie">
                         <h2>NovaFaith = <br />
@@ -77,35 +82,49 @@
 
                     <h3>The goal of this brand is to ignite and spread our faith in Jesus Christ to every nation, so that they may become disciples of Christ and know that <strong>the righteous will live by Faith.</strong></h3>
                 </div>
-                <div class="separator"></div>
+                <!-- Diaporama : remplace slide1/2/3.jpg par tes images (dans assets/img/). Ajoute ou retire des <img class="slide"> librement. -->
+                <figure class="about-image slider" id="about-slider" aria-roledescription="carousel" aria-label="NovaFaith images">
+                    <div class="slides">
+                        <img class="slide active" src="./assets/img/novafaith_1.jpg" alt="NovaFaith - image 1">
+                        <img class="slide" src="./assets/img/novafaith_2.jpg" alt="NovaFaith - image 2">
+                        <img class="slide" src="./assets/img/novafaith_3.jpg" alt="NovaFaith - image 3">
+                        <img class="slide" src="./assets/img/novafaith_4.jpg" alt="NovaFaith - image 4">
+                        <img class="slide" src="./assets/img/novafaith_5.jpg" alt="NovaFaith - image 5">
+                        <img class="slide" src="./assets/img/novafaith_6.jpg" alt="NovaFaith - image 6">
+                        <img class="slide" src="./assets/img/novafaith_7.jpg" alt="NovaFaith - image 7">
+                    </div>
+                    <div class="slider-dots"></div>
+                </figure>
+            </div>
+                <!-- <div class="separator"></div> -->
                 <h3>THE NOVAFAITH COLLECTION</h3>
             </div>
 
             <section class="product-grid" id="product-grid">
                 <div class="product-card">
                     <div class="product-img-container">
-                        <img src="./assets/img/shopping.webp" alt="Product 1">
+                        <img src="./assets/img/shopping.webp" alt="NOVA CLASSIC TEE-SHIRT">
                     </div>
-                    <h4>Produit 1</h4>
-                    <p>Prix</p>
+                    <h4>NOVA CLASSIC TEE-SHIRT</h4>
+                    <p>45.00 €</p>
                     <button class="lm add-to-cart" data-id="nova-classic-tee" data-name="NOVA CLASSIC TEE-SHIRT" data-price="45.00" data-img="./assets/img/shopping.webp">ADD TO CART</button>
                 </div>
 
                 <div class="product-card">
                     <div class="product-img-container">
-                        <img src="./assets/img/images.jpg" alt="Product 2">
+                        <img src="./assets/img/images.jpg" alt="FAITH HOODIE">
                     </div>
-                    <h4>Produit 2</h4>
-                    <p>Prix</p>
+                    <h4>FAITH HOODIE</h4>
+                    <p>85.00 €</p>
                     <button class="lm add-to-cart" data-id="faith-hoodie" data-name="FAITH HOODIE" data-price="85.00" data-img="./assets/img/images.jpg">ADD TO CART</button>
                 </div>
 
                 <div class="product-card">
                     <div class="product-img-container">
-                        <img src="./assets/img/le-sweatshirt--capuche-unisexe-medium-fit-en-terry-effet-dlav.jpg" alt="Product 3">
+                        <img src="./assets/img/le-sweatshirt--capuche-unisexe-medium-fit-en-terry-effet-dlav.jpg" alt="SWEATSHIRT Nova">
                     </div>
-                    <h4>Produit 3</h4>
-                    <p>Prix</p>
+                    <h4>SWEATSHIRT Nova</h4>
+                    <p>55.00 €</p>
                     <button class="lm add-to-cart" data-id="sweatshirt-nova" data-name="SWEATSHIRT Nova" data-price="55.00" data-img="./assets/img/le-sweatshirt--capuche-unisexe-medium-fit-en-terry-effet-dlav.jpg">ADD TO CART</button>
                 </div>
             </section>
@@ -120,7 +139,7 @@
                     <p>Any question about collection or your faith ? Send us a message !</p>
                 </div>
 
-                <form id="contact-form">
+                <form id="contact-form" action="https://formspree.io/f/myeeezng" method="POST" novalidate>
                     <div class="form-row">
                         <div class="form-group">
                             <input type="text" id="name" name="name" placeholder="Your Name" required>
@@ -145,19 +164,11 @@
             <h2>Another way to contact me:</h2>
 
             <div class="rs-container">
-                <button class="rs-btn">
-                    <a href="https://www.instagram.com/novafaith.official/"><img src="./assets/img/instagram-colored.png" style="width: 50px; height: 50px;" alt="Instagram"></a>
-                </button>
+                <a class="rs-btn" href="https://www.instagram.com/novafaith.official/" target="_blank" rel="noopener" aria-label="Instagram"><img src="./assets/img/instagram-colored.png" style="width: 50px; height: 50px;" alt="Instagram"></a>
 
-                <button class="rs-btn">
-                    <a href="https://www.tiktok.com/@novafaith.official"><img src="./assets/img/tiktok-svgrepo-com.svg" style="width: 50px; height: 50px;" alt="TikTok"></a>
-                </button>
+                <a class="rs-btn" href="https://www.tiktok.com/@novafaith.official" target="_blank" rel="noopener" aria-label="TikTok"><img src="./assets/img/tiktok-svgrepo-com.svg" style="width: 50px; height: 50px;" alt="TikTok"></a>
 
-                <button class="rs-btn">
-                    <a href="mailto:novafaith.official@gmail.com">
-                        <img src="./assets/img/mail-pencil-svgrepo-com.svg" style="width: 50px; height: 50px;" alt="Email">
-                    </a>
-                </button>
+                <a class="rs-btn" href="mailto:novafaith.official@gmail.com" aria-label="Email"><img src="./assets/img/mail-pencil-svgrepo-com.svg" style="width: 50px; height: 50px;" alt="Email"></a>
             </div>
         </div>
     </main>
@@ -166,10 +177,10 @@
         NovaFaith (2026) - All rights reserved.
     </footer>
 
-    <button id="backToTop" class="back-to-top" title="Retour en haut">
+    <button id="backToTop" class="back-to-top" title="Back to top">
         <img src="./assets/img/chevron_left_60dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.svg" alt="Top">
     </button>
 
-    <script src="./assets/script.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
