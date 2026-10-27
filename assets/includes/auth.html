@@ -6,20 +6,64 @@
     <title>Account | NovaFaith</title>
     <link rel="icon" href="/assets/img/truelight_logo.jpg" type="image/jpeg">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Saira:wght@300;600&display=swap">
 </head>
 <body class="checkout-page auth-page">
 
     <nav class="site-nav">
-        <a href="/index.html" class="nav-logo" aria-label="NovaFaith - Home">
-            <img src="/assets/img/novafaith_logo.jpg" alt="NovaFaith">
-        </a>
+        <ul class="nav-inline">
+            <li>
+                <a href="/index.html" class="nav-logo" aria-label="NovaFaith - Home" style="text-decoration: none;">
+                    <i class="bi bi-house" style="color:aliceblue; font-size: 20px;"></i>
+                    <span class="nav-text" style="color: #ffffff; margin-left: 7px;" data-i18n="nav.home">Home</span>           
+                    <!-- <img src="/assets/img/truelight_logo.jpg" alt="True Light"> -->
+                </a>
+            </li>
+            <li><a href="/assets/includes/about.html" title="What is NovaFaith ?"><i class="bi bi-person" style="font-size: 20px;"></i><span class="nav-text" data-i18n="nav.about">What is NovaFaith ?</span></a></li>
+            <li><a href="/assets/includes/collection.html" title="The NovaFaith Collection"><i class="bi bi-shop-window" style="font-size: 20px;"></i><span class="nav-text" data-i18n="nav.collection">The NovaFaith Collection</span></a></li>
+            <li><a href="/assets/includes/contact.html" title="Contact Me"><i class="bi bi-envelope" style="font-size: 20px;"></i><span class="nav-text" data-i18n="nav.contact">Contact Me</span></a></li>
+        </ul>
+
         <span class="nav-sep"></span>
-        <a href="/assets/includes/collection.html" class="nav-back"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg><span>Continue shopping</span></a>
+
+        <a href="/assets/includes/auth.html" class="account-link" id="account-link" title="Account"><i class="bi bi-person" style="font-size: 20px;"></i><span id="account-label" data-i18n="auth.login">Log in</span></a>
+
+        <a href="/assets/includes/detail.html" class="cart-link"><i class="bi bi-envelope" style="font-size: 20px;"></i><span><span data-i18n="nav.cart">Cart</span> (<span id="cart-count">0</span>)</span></a>
+
+        <div class="lang-switch lang-full">
+            <button type="button" class="lang-btn" id="lang-btn" aria-haspopup="true" aria-expanded="false" aria-label="Language"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span id="lang-current">EN</span></button>
+            <ul class="lang-menu" id="lang-menu" hidden>
+                <li><button type="button" data-lang="en">English</button></li>
+                <li><button type="button" data-lang="fr">Français</button></li>
+                <li><button type="button" data-lang="es">Español</button></li>
+                <li><button type="button" data-lang="de">Deutsch</button></li>
+            </ul>
+        </div>
+
+        <!-- Menu mobile -->
+        <div class="hamburger-menu" id="hamburger" role="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-overlay" tabindex="0">
+            <i class="bi bi-three-dots-vertical"></i>
+            <!-- <span></span>
+            <span></span>
+            <span></span> -->
+        </div>
     </nav>
 
+    <div class="nav-overlay" id="nav-overlay">
+        <ul class="nav-links">
+            <li><a href="/index.html"><i class="bi bi-house-door-fill"></i> <span data-i18n="nav.home">Home</span></a></li>
+            <li><a href="/assets/includes/about.html" data-i18n="nav.about">What is NovaFaith ?</a></li>
+            <li><a href="/assets/includes/collection.html" data-i18n="nav.collection">The NovaFaith Collection</a></li>
+            <li><a href="/assets/includes/contact.html" data-i18n="nav.contact">Contact Me</a></li>
+            <li><a href="/assets/includes/auth.html" data-i18n="nav.account">Account</a></li>
+            <li><a href="/assets/includes/orders.html" data-i18n="nav.orders">My orders</a></li>
+        <li class="nav-lang"><button type="button" data-lang="en">EN</button><button type="button" data-lang="fr">FR</button><button type="button" data-lang="es">ES</button><button type="button" data-lang="de">DE</button></li>
+        </ul>
+    </div>
+
     <main>
-        <h1 class="checkout-title">Account</h1>
+        <h1 class="checkout-title" data-i18n="nav.account">Account</h1>
 
         <div class="auth-layout">
             <!-- Image : remplace novafaith_1.jpg par celle de ton choix (dans /assets/img/) -->
@@ -34,41 +78,48 @@
             <h2 id="auth-welcome"></h2>
             <p class="co-note" id="auth-email"></p>
             <div class="auth-actions">
-                <a href="/assets/includes/orders.html" class="lm">My orders</a>
-                <a href="/assets/includes/collection.html" class="lm">Continue shopping</a>
-                <button type="button" class="lm" id="logout-btn">LOG OUT</button>
+                <a href="/assets/includes/orders.html" class="lm" data-i18n="nav.orders">My orders</a>
+                <a href="/assets/includes/collection.html" class="lm" data-i18n="nav.continue">Continue shopping</a>
+                <button type="button" class="lm" id="logout-btn" data-i18n="auth.btnLogout">LOG OUT</button>
             </div>
         </section>
 
         <!-- Connexion / création de compte -->
         <div id="auth-forms">
             <div class="auth-tabs" role="tablist">
-                <button type="button" id="tab-login" class="active" role="tab" aria-selected="true">Log in</button>
-                <button type="button" id="tab-register" role="tab" aria-selected="false">Create account</button>
+                <button type="button" id="tab-login" class="active" role="tab" aria-selected="true" data-i18n="auth.login">Log in</button>
+                <button type="button" id="tab-register" role="tab" aria-selected="false" data-i18n="auth.create">Create account</button>
             </div>
 
             <form id="login-form" class="checkout-form auth-form co-block" novalidate>
-                <h2>Log in</h2>
-                <input type="email" id="login-email" placeholder="Email" autocomplete="email" required>
-                <input type="password" id="login-password" placeholder="Password" autocomplete="current-password" data-pw required>
-                <label class="auth-show"><input type="checkbox" class="show-pw"> Show password</label>
+                <h2 data-i18n="auth.login">Log in</h2>
+                <input type="email" id="login-email" placeholder="Email" data-i18n-ph="ph.email" autocomplete="email" required>
+                <input type="password" id="login-password" placeholder="Password" data-i18n-ph="ph.pw" autocomplete="current-password" data-pw required>
+                <label class="auth-show"><input type="checkbox" class="show-pw"> <span data-i18n="auth.showpw">Show password</span></label>
                 <div class="co-error" id="login-error" role="alert"></div>
-                <button type="submit" class="lm">LOG IN</button>
+                <button type="submit" class="lm" data-i18n="auth.btnLogin">LOG IN</button>
             </form>
 
             <form id="register-form" class="checkout-form auth-form co-block" novalidate hidden>
-                <h2>Create your account</h2>
-                <input type="text" id="reg-name" placeholder="Full name" autocomplete="name" required>
-                <input type="email" id="reg-email" placeholder="Email" autocomplete="email" required>
-                <input type="password" id="reg-password" placeholder="Password" autocomplete="new-password" data-pw required>
-                <input type="password" id="reg-confirm" placeholder="Confirm password" autocomplete="new-password" data-pw required>
-                <label class="auth-show"><input type="checkbox" class="show-pw"> Show passwords</label>
-                <p class="co-note">At least 8 characters, with a letter and a number.</p>
+                <h2 data-i18n="auth.createTitle">Create your account</h2>
+                <input type="text" id="reg-name" placeholder="Full name" data-i18n-ph="ph.fullname" autocomplete="name" required>
+                <input type="email" id="reg-email" placeholder="Email" data-i18n-ph="ph.email" autocomplete="email" required>
+                <input type="password" id="reg-password" placeholder="Password" data-i18n-ph="ph.pw" autocomplete="new-password" data-pw required>
+                <input type="password" id="reg-confirm" placeholder="Confirm password" data-i18n-ph="ph.confirm" autocomplete="new-password" data-pw required>
+                <label class="auth-show"><input type="checkbox" class="show-pw"> <span data-i18n="auth.showpws">Show passwords</span></label>
+                <p class="co-note" data-i18n="auth.rules">At least 8 characters, with a letter and a number.</p>
                 <div class="co-error" id="register-error" role="alert"></div>
-                <button type="submit" class="lm">CREATE ACCOUNT</button>
+                <button type="submit" class="lm" data-i18n="auth.btnCreate">CREATE ACCOUNT</button>
             </form>
 
-            <p class="co-note auth-demo">Demo: accounts are stored in this browser only. Passwords are never saved in clear text.</p>
+            <div class="auth-divider"><span data-i18n="auth.or">or</span></div>
+            <div class="auth-social">
+                <button type="button" class="social-btn" id="google-btn"><i class="bi bi-google"></i> <span data-i18n="auth.google">Continue with Google</span></button>
+                <button type="button" class="social-btn" id="facebook-btn"><i class="bi bi-facebook"></i> <span data-i18n="auth.facebook">Continue with Facebook</span></button>
+                <div class="co-error" id="social-error" role="alert"></div>
+            </div>
+
+            <p class="co-note auth-demo" data-i18n="auth.demo">Demo: accounts are stored in this browser only. Passwords are never saved in clear text.</p>
         </div>
 
             </div><!-- /auth-panel -->
@@ -77,8 +128,10 @@
 
     <footer>
         <!-- NovaFaith (2026) - All rights reserved. -->
-        <p>&copy; <span id="year"></span> NovaFaith True Light - All rights reserved</p>
+        <p>&copy; <span id="year"></span> NovaFaith True Light - <span data-i18n="footer.rights">All rights reserved</span></p>
     </footer>
+    <script src="/assets/js/common.js"></script>
+    <script src="/assets/js/config.js"></script>
     <script src="/assets/js/auth.js"></script>
     <script src="/assets/js/script.js"></script>
 </body>

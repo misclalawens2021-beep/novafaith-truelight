@@ -1580,3 +1580,125 @@ a.lm {
 .order-name span { opacity: 0.7; font-size: 0.9rem; }
 .order-line { font-weight: 700; }
 .order-foot { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 12px; }
+
+/* Formulaire de contact : plus de petite poignée de redimensionnement */
+.contact-container textarea { resize: none; }
+
+/* =========================================
+   Sélecteur de langue
+========================================= */
+.lang-switch { position: relative; display: flex; align-items: center; }
+.lang-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 12px; background: transparent; border: 0; border-radius: 999px;
+    color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.72rem; letter-spacing: 1px;
+    cursor: pointer; opacity: 0.8; transition: background 0.3s ease, opacity 0.3s ease;
+}
+.lang-btn:hover { background: rgba(255, 255, 255, 0.14); opacity: 1; }
+.lang-menu {
+    position: absolute; top: calc(100% + 14px); right: 0; min-width: 150px;
+    margin: 0; padding: 6px; list-style: none;
+    background: rgba(0, 0, 0, 0.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); z-index: 10;
+}
+.lang-menu[hidden] { display: none; }
+.lang-menu button {
+    width: 100%; padding: 9px 12px; text-align: left; background: transparent; border: 0; border-radius: 8px;
+    color: white; font-family: 'Montserrat', sans-serif; cursor: pointer;
+}
+.lang-menu button:hover, .lang-menu button.active { background: rgba(255, 255, 255, 0.16); }
+
+.nav-links .nav-lang { display: flex; gap: 10px; justify-content: center; margin-top: 24px; }
+.nav-lang button {
+    padding: 8px 14px; background: transparent; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 999px;
+    color: white; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer;
+}
+.nav-lang button.active { background: white; color: black; }
+
+@media (max-width: 768px) {
+    .lang-full { display: none; } /* sur mobile, la langue se choisit dans le menu plein écran */
+}
+
+/* =========================================
+   Connexion avec Google / Facebook
+========================================= */
+.auth-divider { display: flex; align-items: center; gap: 14px; margin: 22px 0 16px; font-size: 0.85rem; opacity: 0.7; }
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: rgba(255, 255, 255, 0.2); }
+.auth-social { display: flex; flex-direction: column; gap: 12px; }
+.social-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; padding: 13px; background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 8px; color: white;
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px;
+    cursor: pointer; transition: background 0.3s ease, transform 0.3s ease;
+}
+.social-btn:hover { background: rgba(255, 255, 255, 0.18); transform: translateY(-2px); }
+.social-btn i { font-size: 1.2rem; }
+
+/* =========================================
+   Transition animée entre les pages
+========================================= */
+@keyframes pageIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: none; }
+}
+main, footer {
+    animation: pageIn 0.6s ease backwards;          /* arrivée sur la page */
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+html.leaving main, html.leaving footer {            /* départ vers une autre page */
+    opacity: 0;
+    transform: translateY(-14px);
+}
+@media (prefers-reduced-motion: reduce) {
+    main, footer { animation: none; transition: none; }
+}
+
+/* =========================================
+   Couleurs des produits
+========================================= */
+.swatches, .cart-colors { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 16px; }
+.swatch {
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border-radius: 50%;
+    background: var(--c);
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.swatch:hover { transform: scale(1.15); }
+.swatch.active { border-color: #fff; outline: 2px solid rgba(255, 255, 255, 0.6); outline-offset: 2px; }
+.dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--c); border: 1px solid rgba(255, 255, 255, 0.5); }
+.cart-color-name { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; opacity: 0.85; }
+.cart-info .cart-colors { margin: 8px 0 0; }
+
+/* =========================================
+   Zoom au survol (page de paiement)
+========================================= */
+.zoom-box {
+    flex: none;
+    width: 130px;
+    height: 130px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #0a0a0a;
+    cursor: zoom-in;
+}
+.cart-row .zoom-box img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    transform-origin: var(--zx, 50%) var(--zy, 50%);
+    transition: transform 0.25s ease;
+}
+@media (hover: hover) {
+    .zoom-box:hover img { transform: scale(2.5); }
+}
+@media (max-width: 600px) {
+    .zoom-box { width: 96px; height: 96px; }
+}

@@ -1,24 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Panier : stocké dans le navigateur, puis redirection vers la page de paiement
-    const CART_KEY = 'novafaith-cart';
-    const readCart = () => {
-        try {
-            const c = JSON.parse(localStorage.getItem(CART_KEY));
-            return Array.isArray(c) ? c : [];
-        } catch { return []; }
-    };
+    // 1. Couleurs + panier (un panier par compte)
     const cartBadge = document.getElementById('cart-count');
-    if (cartBadge) cartBadge.textContent = readCart().reduce((n, i) => n + (i.qty || 0), 0);
+    if (cartBadge) cartBadge.textContent = NF.readCart().reduce((n, i) => n + (i.qty || 0), 0);
+
+    // Choisir une couleur change l'image de la carte
+    document.querySelectorAll('.product-card').forEach(card => {
+        const img = card.querySelector('.product-img-container img');
+        const swatches = card.querySelectorAll('.swatch');
+        swatches.forEach(sw => sw.addEventListener('click', () => {
+            swatches.forEach(s => { s.classList.toggle('active', s === sw); s.setAttribute('aria-checked', String(s === sw)); });
+            if (img && sw.dataset.img) img.src = sw.dataset.img;
+        }));
+    });
 
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', () => {
-            const { id, name, price, img } = button.dataset;
-            const cart = readCart();
-            const item = cart.find(i => i.id === id);
+            const { id, name, price } = button.dataset;
+            const card = button.closest('.product-card');
+            const sw = card && card.querySelector('.swatch.active');       // couleur choisie
+            const imgEl = card && card.querySelector('.product-img-container img');
+            const color = sw ? { color: sw.dataset.color, colorName: sw.dataset.name, hex: sw.dataset.hex } : {};
+            const img = (sw && sw.dataset.img) || (imgEl ? imgEl.getAttribute('src') : '');
+            const cart = NF.readCart();
+            const item = cart.find(i => i.id === id && (i.color || '') === (color.color || ''));
             if (item) item.qty++;
-            else cart.push({ id, name, price: parseFloat(price), img, qty: 1 });
-            try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch {}
-            window.location.href = '/assets/includes/detail.html';
+            else cart.push({ id, name, price: parseFloat(price), img, qty: 1, ...color });
+            NF.saveCart(cart);
+            NF.go('/assets/includes/detail.html');
         });
     });
 
@@ -51,8 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const formStatus = document.getElementById('form-status');
 
     if (contactForm && formStatus) {
-        const setStatus = (msg, ok) => {
-            formStatus.textContent = msg;
+        const t = NF.t;
+        const setStatus = (key, ok) => {
+            formStatus.textContent = t(key);
             formStatus.style.color = ok ? '#ffffff' : '#ff8a80';
             formStatus.style.marginTop = '20px';
         };
@@ -64,13 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = this.elements['email'].value.trim();
             const message = this.elements['message'].value.trim();
 
-            if (!name || !message) return setStatus('Please fill in all the fields.', false);
-            if (!/^\S+@\S+\.\S+$/.test(email)) return setStatus('Please enter a valid email address.', false);
+            if (!name || !message) return setStatus('err.fill', false);
+            if (!/^\S+@\S+\.\S+$/.test(email)) return setStatus('err.email', false);
             if (this.elements['_gotcha'] && this.elements['_gotcha'].value) return; // anti-spam : un robot a rempli le piège
 
             const btn = this.querySelector('button[type="submit"]');
-            const originalText = btn.innerText;
-            btn.innerText = 'SENDING...';
+            btn.textContent = t('contact.sending');
             btn.style.opacity = '0.7';
             btn.disabled = true;
             formStatus.textContent = '';
@@ -83,20 +91,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 if (!res.ok) throw new Error('HTTP ' + res.status);
 
-                setStatus('Message sent. God bless you!', true);
-                btn.innerText = 'SENT ✅';
+                setStatus('contact.ok', true);
+                btn.textContent = t('contact.sent');
                 btn.style.backgroundColor = '#4CAF50';
                 btn.style.color = 'white';
                 this.reset();
             } catch {
-                setStatus('Something went wrong. Please try again in a moment.', false);
-                btn.innerText = 'ERROR';
+                setStatus('contact.fail', false);
+                btn.textContent = t('contact.error');
                 btn.style.backgroundColor = '#e53935';
                 btn.style.color = 'white';
             }
 
             setTimeout(() => {
-                btn.innerText = originalText;
+                btn.textContent = t('contact.send');
                 btn.style.backgroundColor = 'white';
                 btn.style.color = 'black';
                 btn.style.opacity = '1';
@@ -167,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dots = slides.map((_, i) => {
             const b = document.createElement('button');
             b.type = 'button';
-            b.setAttribute('aria-label', 'Image ' + (i + 1));
+            b.setAttribute('aria-label', NF.t('ui.image') + ' ' + (i + 1));
             b.addEventListener('click', () => { go(i); start(); });
             dotsBox.appendChild(b);
             return b;
@@ -197,11 +205,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 7. Compte : affiche le prénom dans la navbar si l'utilisateur est connecté
     const accountLabel = document.getElementById('account-label');
-    if (accountLabel) {
-        try {
-            const session = JSON.parse(localStorage.getItem('novafaith-session'));
-            if (session && session.name) accountLabel.textContent = session.name.split(' ')[0];
-        } catch {}
+    const me = NF.session();
+    if (accountLabel && me && me.name) {
+        accountLabel.removeAttribute('data-i18n'); // le prénom ne se traduit pas
+        accountLabel.textContent = me.name.split(' ')[0];
     }
 
     // 8. Page courante : met en évidence son lien dans la navbar

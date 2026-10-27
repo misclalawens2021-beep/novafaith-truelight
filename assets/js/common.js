@@ -104,7 +104,7 @@
         'auth.err.match': ['The passwords do not match.', 'Les mots de passe ne correspondent pas.', 'Las contraseñas no coinciden.', 'Die Passwörter stimmen nicht überein.'],
         'auth.err.exists': ['An account already exists with this email.', 'Un compte existe déjà avec cet e-mail.', 'Ya existe una cuenta con este correo.', 'Mit dieser E-Mail existiert bereits ein Konto.'],
         'auth.err.save': ['Could not save the account in this browser.', "Impossible d'enregistrer le compte dans ce navigateur.", 'No se pudo guardar la cuenta en este navegador.', 'Das Konto konnte in diesem Browser nicht gespeichert werden.'],
-        'auth.err.social': ['{p} sign-in needs an ID: add it at the top of auth.js.', 'La connexion {p} nécessite un identifiant : ajoute-le en haut de auth.js.', 'El inicio de sesión con {p} necesita un ID: añádelo al principio de auth.js.', 'Für die Anmeldung mit {p} wird eine ID benötigt: trage sie oben in auth.js ein.'],
+        'auth.err.social': ['{p} sign-in is not available right now. Please use your email and password.', "La connexion avec {p} n'est pas disponible pour le moment. Utilise ton e-mail et ton mot de passe.", 'El inicio de sesión con {p} no está disponible por ahora. Usa tu correo y tu contraseña.', 'Die Anmeldung mit {p} ist im Moment nicht verfügbar. Bitte nutze deine E-Mail und dein Passwort.'],
         'auth.err.socialFail': ['Sign-in failed. Please try again.', 'La connexion a échoué. Réessaie.', 'Error al iniciar sesión. Inténtalo de nuevo.', 'Anmeldung fehlgeschlagen. Bitte versuche es erneut.'],
         'co.title': ['Checkout', 'Paiement', 'Pago', 'Kasse'],
         'co.empty': ['Your cart is empty.', 'Ton panier est vide.', 'Tu carrito está vacío.', 'Dein Warenkorb ist leer.'],
@@ -132,7 +132,11 @@
         'co.err.exp': ['The expiry date is not valid.', "La date d'expiration n'est pas valide.", 'La fecha de caducidad no es válida.', 'Das Ablaufdatum ist ungültig.'],
         'co.err.cvc': ['The CVC is not valid.', "Le CVC n'est pas valide.", 'El CVC no es válido.', 'Der CVC ist ungültig.'],
         'orders.empty': ["You haven't ordered anything yet.", "Tu n'as encore rien commandé.", 'Todavía no has pedido nada.', 'Du hast noch nichts bestellt.'],
-        'orders.discover': ['Discover the collection', 'Découvrir la collection', 'Descubrir la colección', 'Kollektion entdecken']
+        'orders.discover': ['Discover the collection', 'Découvrir la collection', 'Descubrir la colección', 'Kollektion entdecken'],
+        'co.color': ['Color', 'Couleur', 'Color', 'Farbe'],
+        'color.black': ['Black', 'Noir', 'Negro', 'Schwarz'],
+        'color.white': ['White', 'Blanc', 'Blanco', 'Weiß'],
+        'color.red': ['Red', 'Rouge', 'Rojo', 'Rot']
     };
 
     let lang = safe(() => localStorage.getItem('novafaith-lang'), null);
@@ -142,6 +146,7 @@
     }
 
     NF.lang = () => lang;
+    NF.colorName = (id, fallback) => (D['color.' + id] ? NF.t('color.' + id) : (fallback || id));
     NF.locale = () => ({ en: 'en-GB', fr: 'fr-FR', es: 'es-ES', de: 'de-DE' })[lang];
     NF.t = (key, vars) => {
         const e = D[key];
@@ -192,4 +197,23 @@
             document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
         }
     });
+
+    // ---------- Transition animée entre les pages ----------
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    NF.go = url => {
+        if (reduceMotion) { window.location.href = url; return; }
+        document.documentElement.classList.add('leaving');          // fondu de sortie (voir style.css)
+        setTimeout(() => { window.location.href = url; }, 350);
+    };
+    document.addEventListener('click', e => {
+        const a = e.target.closest('a[href]');
+        if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        if ((a.target && a.target !== '_self') || a.hasAttribute('download')) return;
+        const u = new URL(a.href, location.href);
+        if (u.origin !== location.origin) return;                    // lien externe, mailto…
+        if (u.pathname === location.pathname && u.search === location.search) return; // ancre dans la même page
+        e.preventDefault();
+        NF.go(u.href);
+    });
+    window.addEventListener('pageshow', e => { if (e.persisted) document.documentElement.classList.remove('leaving'); });
 })();

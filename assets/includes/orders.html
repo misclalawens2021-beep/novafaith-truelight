@@ -6,24 +6,68 @@
     <title>My orders | NovaFaith</title>
     <link rel="icon" href="/assets/img/truelight_logo.jpg" type="image/jpeg">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Saira:wght@300;600&display=swap">
 </head>
 <body class="checkout-page">
 
     <nav class="site-nav">
-        <a href="/index.html" class="nav-logo" aria-label="NovaFaith - Home">
-            <img src="/assets/img/novafaith_logo.jpg" alt="NovaFaith">
-        </a>
+        <ul class="nav-inline">
+            <li>
+                <a href="/index.html" class="nav-logo" aria-label="NovaFaith - Home" style="text-decoration: none;">
+                    <i class="bi bi-house" style="color:aliceblue; font-size: 20px;"></i>
+                    <span class="nav-text" style="color: #ffffff; margin-left: 7px;" data-i18n="nav.home">Home</span>           
+                    <!-- <img src="/assets/img/truelight_logo.jpg" alt="True Light"> -->
+                </a>
+            </li>
+            <li><a href="/assets/includes/about.html" title="What is NovaFaith ?"><i class="bi bi-person" style="font-size: 20px;"></i><span class="nav-text" data-i18n="nav.about">What is NovaFaith ?</span></a></li>
+            <li><a href="/assets/includes/collection.html" title="The NovaFaith Collection"><i class="bi bi-shop-window" style="font-size: 20px;"></i><span class="nav-text" data-i18n="nav.collection">The NovaFaith Collection</span></a></li>
+            <li><a href="/assets/includes/contact.html" title="Contact Me"><i class="bi bi-envelope" style="font-size: 20px;"></i><span class="nav-text" data-i18n="nav.contact">Contact Me</span></a></li>
+        </ul>
+
         <span class="nav-sep"></span>
-        <a href="/assets/includes/collection.html" class="nav-back"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg><span>Continue shopping</span></a>
+
+        <a href="/assets/includes/auth.html" class="account-link" id="account-link" title="Account"><i class="bi bi-person" style="font-size: 20px;"></i><span id="account-label" data-i18n="auth.login">Log in</span></a>
+
+        <a href="/assets/includes/detail.html" class="cart-link"><i class="bi bi-envelope" style="font-size: 20px;"></i><span><span data-i18n="nav.cart">Cart</span> (<span id="cart-count">0</span>)</span></a>
+
+        <div class="lang-switch lang-full">
+            <button type="button" class="lang-btn" id="lang-btn" aria-haspopup="true" aria-expanded="false" aria-label="Language"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><span id="lang-current">EN</span></button>
+            <ul class="lang-menu" id="lang-menu" hidden>
+                <li><button type="button" data-lang="en">English</button></li>
+                <li><button type="button" data-lang="fr">Français</button></li>
+                <li><button type="button" data-lang="es">Español</button></li>
+                <li><button type="button" data-lang="de">Deutsch</button></li>
+            </ul>
+        </div>
+
+        <!-- Menu mobile -->
+        <div class="hamburger-menu" id="hamburger" role="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-overlay" tabindex="0">
+            <i class="bi bi-three-dots-vertical"></i>
+            <!-- <span></span>
+            <span></span>
+            <span></span> -->
+        </div>
     </nav>
 
+    <div class="nav-overlay" id="nav-overlay">
+        <ul class="nav-links">
+            <li><a href="/index.html"><i class="bi bi-house-door-fill"></i> <span data-i18n="nav.home">Home</span></a></li>
+            <li><a href="/assets/includes/about.html" data-i18n="nav.about">What is NovaFaith ?</a></li>
+            <li><a href="/assets/includes/collection.html" data-i18n="nav.collection">The NovaFaith Collection</a></li>
+            <li><a href="/assets/includes/contact.html" data-i18n="nav.contact">Contact Me</a></li>
+            <li><a href="/assets/includes/auth.html" data-i18n="nav.account">Account</a></li>
+            <li><a href="/assets/includes/orders.html" data-i18n="nav.orders">My orders</a></li>
+        <li class="nav-lang"><button type="button" data-lang="en">EN</button><button type="button" data-lang="fr">FR</button><button type="button" data-lang="es">ES</button><button type="button" data-lang="de">DE</button></li>
+        </ul>
+    </div>
+
     <main>
-        <h1 class="checkout-title">My orders</h1>
+        <h1 class="checkout-title" data-i18n="nav.orders">My orders</h1>
 
         <div id="orders-empty" class="checkout-empty" hidden>
-            <p>You haven't ordered anything yet.</p>
-            <a href="/assets/includes/collection.html" class="lm">Discover the collection</a>
+            <p data-i18n="orders.empty">You haven't ordered anything yet.</p>
+            <a href="/assets/includes/collection.html" class="lm" data-i18n="orders.discover">Discover the collection</a>
         </div>
 
         <div id="orders-list"></div>
@@ -31,8 +75,9 @@
 
     <footer>
         <!-- NovaFaith (2026) - All rights reserved -->
-        <p>&copy; <span id="year"></span> NovaFaith True Light - All rights reserved</p>
+        <p>&copy; <span id="year"></span> NovaFaith True Light - <span data-i18n="footer.rights">All rights reserved</span></p>
     </footer>
+    <script src="/assets/js/common.js"></script>
     <script src="/assets/js/orders.js"></script>
     <script src="/assets/js/script.js"></script>
 </body>
