@@ -1114,8 +1114,9 @@ a.lm {
     stroke-linejoin: round;
 }
 
-/* Écrans moyens : icônes seules pour que la pilule tienne */
-@media (max-width: 1100px) {
+/* Écrans moyens (portables inclus) : icônes seules, sinon la pilule est plus large que la fenêtre
+   et le logo (premier élément) dépasse à gauche et se retrouve coupé */
+@media (max-width: 1440px) {
     .nav-inline a .nav-text { display: none; }
     .nav-inline a { padding: 10px; }
 }
@@ -1168,7 +1169,7 @@ a.lm {
     display: flex;
     justify-content: center;
     gap: 8px;
-    z-index: 2;
+    z-index: -1;
 }
 .slider-dots button {
     width: 9px;
@@ -1213,7 +1214,7 @@ a.lm {
     .account-link { display: none; } /* le lien Account est dans le menu plein écran */
 }
 
-.auth-page main { max-width: 460px; }
+.auth-page main { max-width: 980px; }
 
 .auth-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
 .auth-tabs button {
@@ -1251,3 +1252,331 @@ a.lm {
 
 .auth-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
 .auth-demo { text-align: center; }
+
+/* =========================================
+   Contact + réseaux sociaux côte à côte
+========================================= */
+.contact-row {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 80px 20px;
+}
+
+.contact-row .contact-section {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0;
+}
+
+.contact-row .contact-container {
+    flex: 1;
+    max-width: none;
+    margin: 0;
+}
+
+.contact-row .rs-links {
+    flex: 0 0 340px;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 30px;
+    gap: 0;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+.contact-row .rs-links h2 {
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    padding-bottom: 30px;
+}
+
+.contact-row .rs-container { gap: 16px; }
+.contact-row .rs-btn { width: 80px; height: 80px; }
+
+@media (max-width: 900px) {
+    .contact-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        padding: 50px 15px;
+    }
+    .contact-row .contact-section { flex: none; width: 100%; }
+    .contact-row .contact-container { flex: none; width: 100%; }
+    .contact-row .rs-links { flex: none; width: 100%; max-width: 800px; }
+}
+
+/* =========================================
+   Page d'authentification : image + formulaire
+========================================= */
+.auth-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: stretch;
+}
+
+.auth-image {
+    position: relative;
+    display: flex;
+    margin: 0;
+    min-height: 420px;
+    border-radius: 14px;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+}
+
+/* Seule la bordure est lumineuse : le centre reste transparent */
+.auth-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 3px; /* épaisseur de la bordure */
+    border-radius: 14px;
+    background: conic-gradient(from var(--angle),
+        rgba(255, 255, 255, 0.08) 0%,
+        #ffffff 15%,
+        rgba(255, 255, 255, 0.08) 35%,
+        rgba(255, 255, 255, 0.08) 65%,
+        #ffffff 80%,
+        rgba(255, 255, 255, 0.08) 100%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: border-spin 6s linear infinite;
+}
+
+/* Image transparente : change opacity pour régler (0 = invisible, 1 = opaque) */
+.auth-image img {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    margin: 3px;
+    object-fit: cover;
+    border-radius: 11px;
+    background: transparent;
+    opacity: 0.45;
+    transition: opacity 0.4s ease;
+}
+.auth-image:hover img { opacity: 0.8; }
+
+.auth-panel { min-width: 0; }
+
+@media (max-width: 800px) {
+    .auth-layout { grid-template-columns: 1fr; gap: 24px; }
+    .auth-image { min-height: 0; height: 220px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .auth-image::before { animation: none; }
+}
+
+/* =========================================
+   Bouton menu hamburger : pastille ronde
+   (dans la pilule, devient blanc avec une croix une fois ouvert)
+========================================= */
+.hamburger-menu {
+    top: 22px;
+    right: 20px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.hamburger-menu span {
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+}
+
+.hamburger-menu span:nth-child(2) { width: 12px; } /* barre du milieu plus courte */
+
+.hamburger-menu:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.06); }
+.hamburger-menu:hover span:nth-child(2) { width: 18px; }
+.hamburger-menu:focus-visible { outline: 2px solid white; outline-offset: 3px; }
+
+/* Ouvert : pastille blanche, croix noire */
+.hamburger-menu.active {
+    background: white;
+    border-color: white;
+}
+.hamburger-menu.active span { background-color: black; }
+.hamburger-menu.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger-menu.active span:nth-child(2) { opacity: 0; width: 0; }
+.hamburger-menu.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile : le hamburger fait partie de la pilule (logo | panier | menu) */
+@media (max-width: 768px) {
+    .site-nav {
+        z-index: 3000;            /* au-dessus du menu plein écran pour pouvoir le refermer */
+        padding: 0 8px 0 14px;
+    }
+    .hamburger-menu {
+        position: relative;       /* dans le flux de la barre, plus en position fixe */
+        top: auto;
+        right: auto;
+        flex: none;
+    }
+    .cart-link {
+        margin-left: auto;        /* panier et menu groupés à droite */
+        margin-right: 0;
+    }
+}
+
+/* =========================================
+   Logo de la navbar : garde ses proportions et tient dans la pilule
+========================================= */
+.nav-logo {
+    display: flex;
+    align-items: center;
+    flex: none;
+}
+.nav-logo img {
+    height: 44px;
+    width: auto;
+    max-width: none;
+    flex: none;
+}
+
+@media (max-width: 768px) {
+    .nav-logo img { height: 36px; }
+}
+
+@media (max-width: 380px) { /* très petits téléphones */
+    .site-nav { gap: 8px; padding-left: 10px; }
+    .nav-logo img { height: 30px; }
+    .cart-link { padding: 9px 8px; letter-spacing: 0; }
+}
+
+/* Si malgré tout le contenu est trop large, il s'aligne à gauche au lieu de déborder des deux côtés */
+@media (min-width: 769px) {
+    .site-nav { justify-content: safe center; }
+}
+
+/* =========================================
+   Pages secondaires + cartes d'accueil
+========================================= */
+.sub-page main { padding-top: 90px; }
+.sub-page .welcome-to { margin-top: 30px; margin-bottom: 40px; }
+.page-title { font-family: 'Saira', sans-serif; font-size: 2rem; letter-spacing: 5px; margin: 0 0 10px; }
+
+.home-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 40px auto 80px;
+    padding: 0 20px;
+}
+.home-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 34px 24px;
+    color: white;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    transition: transform 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+}
+.home-card:hover { transform: translateY(-8px); border-color: rgba(255, 255, 255, 0.4); background: rgba(255, 255, 255, 0.1); }
+.home-card i { font-size: 2rem; margin-bottom: 8px; }
+.home-card h3 { font-size: 1.05rem; letter-spacing: 2px; margin: 0; }
+.home-card p { margin: 0; opacity: 0.75; font-size: 0.9rem; }
+
+/* =========================================
+   Product card : image plein cadre + infos
+========================================= */
+.product-grid { gap: 28px; }
+
+.product-grid .product-card {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+    text-align: left;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+}
+.product-grid .product-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 255, 255, 0.12);
+}
+
+.product-grid .product-img-container {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #0a0a0a;
+}
+.product-grid .product-img-container::after { /* léger dégradé vers le bas */
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.55));
+    pointer-events: none;
+}
+.product-grid .product-img-container img {
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+.product-grid .product-card:hover .product-img-container img { transform: scale(1.06); }
+
+.product-info { display: flex; flex-direction: column; padding: 18px 20px 22px; }
+.product-grid .product-card h4 { margin: 0 0 6px; font-size: 1rem; letter-spacing: 2px; }
+.product-grid .product-card .product-price { margin: 0 0 16px; font-size: 1.15rem; font-weight: 700; opacity: 1; }
+.product-grid .product-card .lm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 10px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .product-grid .product-card { width: 100%; max-width: 420px; }
+}
+
+/* =========================================
+   Page « My orders »
+========================================= */
+.order-card { margin-bottom: 24px; }
+.order-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.order-head h2 { margin: 0; }
+.order-head span { opacity: 0.7; font-size: 0.9rem; }
+.order-row { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+.order-row img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; flex: none; }
+.order-name { flex: 1; display: flex; flex-direction: column; gap: 4px; text-align: left; }
+.order-name span { opacity: 0.7; font-size: 0.9rem; }
+.order-line { font-weight: 700; }
+.order-foot { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 12px; }

@@ -4,29 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account | NovaFaith</title>
-    <link rel="icon" href="./assets/img/IMG_3153.PNG" type="image/png">
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="icon" href="/assets/img/truelight_logo.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Saira:wght@300;600&display=swap">
 </head>
 <body class="checkout-page auth-page">
 
     <nav class="site-nav">
-        <a href="index.html" class="nav-logo" aria-label="NovaFaith - Home">
-            <img src="./assets/img/novafaith_logo.jpg" alt="NovaFaith">
+        <a href="/index.html" class="nav-logo" aria-label="NovaFaith - Home">
+            <img src="/assets/img/novafaith_logo.jpg" alt="NovaFaith">
         </a>
         <span class="nav-sep"></span>
-        <a href="index.html#product-grid" class="nav-back"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg><span>Continue shopping</span></a>
+        <a href="/assets/includes/collection.html" class="nav-back"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg><span>Continue shopping</span></a>
     </nav>
 
     <main>
         <h1 class="checkout-title">Account</h1>
+
+        <div class="auth-layout">
+            <!-- Image : remplace novafaith_1.jpg par celle de ton choix (dans /assets/img/) -->
+            <figure class="auth-image">
+                <img src="/assets/img/truelight_logo.jpg" alt="NovaFaith">
+            </figure>
+
+            <div class="auth-panel">
 
         <!-- Utilisateur déjà connecté -->
         <section class="co-block" id="auth-logged" hidden>
             <h2 id="auth-welcome"></h2>
             <p class="co-note" id="auth-email"></p>
             <div class="auth-actions">
-                <a href="index.html#product-grid" class="lm">Continue shopping</a>
+                <a href="/assets/includes/orders.html" class="lm">My orders</a>
+                <a href="/assets/includes/collection.html" class="lm">Continue shopping</a>
                 <button type="button" class="lm" id="logout-btn">LOG OUT</button>
             </div>
         </section>
@@ -61,9 +70,16 @@
 
             <p class="co-note auth-demo">Demo: accounts are stored in this browser only. Passwords are never saved in clear text.</p>
         </div>
+
+            </div><!-- /auth-panel -->
+        </div><!-- /auth-layout -->
     </main>
 
-    <footer>NovaFaith (2026) - All rights reserved.</footer>
-    <script src="./assets/js/auth.js"></script>
+    <footer>
+        <!-- NovaFaith (2026) - All rights reserved. -->
+        <p>&copy; <span id="year"></span> NovaFaith True Light - All rights reserved</p>
+    </footer>
+    <script src="/assets/js/auth.js"></script>
+    <script src="/assets/js/script.js"></script>
 </body>
 </html>

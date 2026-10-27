@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout | NovaFaith</title>
-    <link rel="icon" href="./assets/img/IMG_3153.PNG" type="image/png">
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="icon" href="/assets/img/truelight_logo.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Saira:wght@300;600&display=swap">
 </head>
 <body class="checkout-page">
 
     <nav class="site-nav">
-        <a href="index.html" class="nav-logo" aria-label="NovaFaith - Home">
-            <img src="./assets/img/novafaith_logo.jpg" alt="NovaFaith">
+        <a href="/index.html" class="nav-logo" aria-label="NovaFaith - Home">
+            <img src="/assets/img/novafaith_logo.jpg" alt="NovaFaith">
         </a>
         <span class="nav-sep"></span>
-        <a href="index.html#product-grid" class="nav-back"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg><span>Continue shopping</span></a>
+        <a href="/assets/includes/collection.html" class="nav-back"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg><span>Continue shopping</span></a>
     </nav>
 
     <main>
@@ -23,13 +23,14 @@
 
         <div id="empty-cart" class="checkout-empty" hidden>
             <p>Your cart is empty.</p>
-            <a href="index.html#product-grid" class="lm">Back to the collection</a>
+            <a href="/assets/includes/collection.html" class="lm">Back to the collection</a>
         </div>
 
         <div id="confirmation" class="checkout-empty" hidden>
             <h2>Thank you for your order!</h2>
             <p>Order <strong id="order-number"></strong> has been placed. God bless you!</p>
-            <a href="index.html" class="lm">Back to home</a>
+            <a href="/assets/includes/orders.html" class="lm">View my orders</a>
+            <a href="/index.html" class="lm">Back to home</a>
         </div>
 
         <div class="checkout-layout" id="checkout-layout" hidden>
@@ -77,7 +78,11 @@
         </div>
     </main>
 
-    <footer>NovaFaith (2026) - All rights reserved.</footer>
-    <script src="./assets/js/detail.js"></script>
+    <footer>
+        <!-- NovaFaith (2026) - All rights reserved -->
+        <p>&copy; <span id="year"></span> NovaFaith True Light - All rights reserved</p>
+    </footer>
+    <script src="/assets/js/detail.js"></script>
+    <script src="/assets/js/script.js"></script>
 </body>
 </html>

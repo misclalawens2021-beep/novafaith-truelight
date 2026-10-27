@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let session = null;
     try { session = JSON.parse(localStorage.getItem('novafaith-session')); } catch {}
     if (!session || !session.email) {
-        window.location.replace('auth.html?next=detail.html');
+        window.location.replace('/assets/includes/auth.html?next=detail.html');
         return;
     }
 
@@ -118,7 +118,21 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.disabled = true;
         btn.textContent = 'PROCESSING...';
         setTimeout(() => {
-            $('order-number').textContent = '#NF-' + Math.floor(100000 + Math.random() * 900000);
+            const number = '#NF-' + Math.floor(100000 + Math.random() * 900000);
+            const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            const shipping = subtotal >= FREE_SHIPPING_FROM ? 0 : SHIPPING_FEE;
+            // Historique des commandes (affiché dans la page « My orders »)
+            try {
+                const prev = JSON.parse(localStorage.getItem('novafaith-orders'));
+                const orders = Array.isArray(prev) ? prev : [];
+                orders.push({
+                    number, email: session.email, date: new Date().toISOString(),
+                    items: cart.map(({ id, name, price, img, qty }) => ({ id, name, price, img, qty })),
+                    shipping, total: subtotal + shipping
+                });
+                localStorage.setItem('novafaith-orders', JSON.stringify(orders));
+            } catch {}
+            $('order-number').textContent = number;
             saveCart([]);
             $('checkout-layout').hidden = true;
             $('confirmation').hidden = false;

@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const USERS_KEY = 'novafaith-users';
     const SESSION_KEY = 'novafaith-session';
-    const ALLOWED_NEXT = ['index.html', 'detail.html']; // évite les redirections vers un site externe
+    // Pages autorisées après connexion (évite les redirections vers un site externe)
+    const NEXT_PAGES = { 'index.html': '/index.html', 'detail.html': '/assets/includes/detail.html', 'orders.html': '/assets/includes/orders.html' };
 
     const $ = id => document.getElementById(id);
     const read = (key, fallback) => {
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const nextPage = () => {
         const n = new URLSearchParams(location.search).get('next');
-        return ALLOWED_NEXT.includes(n) ? n : 'index.html';
+        return NEXT_PAGES[n] || '/index.html';
     };
 
     // Mot de passe : jamais stocké en clair (sel aléatoire + PBKDF2-SHA256)

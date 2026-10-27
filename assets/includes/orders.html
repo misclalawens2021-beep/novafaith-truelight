@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My orders | NovaFaith</title>
+    <link rel="icon" href="/assets/img/truelight_logo.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Saira:wght@300;600&display=swap">
+</head>
+<body class="checkout-page">
+
+    <nav class="site-nav">
+        <a href="/index.html" class="nav-logo" aria-label="NovaFaith - Home">
+            <img src="/assets/img/novafaith_logo.jpg" alt="NovaFaith">
+        </a>
+        <span class="nav-sep"></span>
+        <a href="/assets/includes/collection.html" class="nav-back"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg><span>Continue shopping</span></a>
+    </nav>
+
+    <main>
+        <h1 class="checkout-title">My orders</h1>
+
+        <div id="orders-empty" class="checkout-empty" hidden>
+            <p>You haven't ordered anything yet.</p>
+            <a href="/assets/includes/collection.html" class="lm">Discover the collection</a>
+        </div>
+
+        <div id="orders-list"></div>
+    </main>
+
+    <footer>
+        <!-- NovaFaith (2026) - All rights reserved -->
+        <p>&copy; <span id="year"></span> NovaFaith True Light - All rights reserved</p>
+    </footer>
+    <script src="/assets/js/orders.js"></script>
+    <script src="/assets/js/script.js"></script>
+</body>
+</html>

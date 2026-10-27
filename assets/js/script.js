@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (item) item.qty++;
             else cart.push({ id, name, price: parseFloat(price), img, qty: 1 });
             try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch {}
-            window.location.href = 'detail.html';
+            window.location.href = '/assets/includes/detail.html';
         });
     });
 
@@ -27,69 +27,82 @@ document.addEventListener('DOMContentLoaded', () => {
     const navOverlay = document.getElementById('nav-overlay');
 
     if (hamburger && navOverlay) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navOverlay.classList.toggle('active');
+        const setMenu = open => {
+            hamburger.classList.toggle('active', open);
+            navOverlay.classList.toggle('active', open);
+            hamburger.setAttribute('aria-expanded', String(open));
+        };
+        const toggleMenu = () => setMenu(!navOverlay.classList.contains('active'));
+
+        hamburger.addEventListener('click', toggleMenu);
+        hamburger.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); }
         });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
         // Fermer le menu après avoir cliqué sur un lien
         document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navOverlay.classList.remove('active');
-            });
+            link.addEventListener('click', () => setMenu(false));
         });
     }
 
-    // 3. Formulaire de contact (simulation d'envoi)
+    // 3. Formulaire de contact (envoi réel via Formspree)
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
 
-    if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
+    if (contactForm && formStatus) {
+        const setStatus = (msg, ok) => {
+            formStatus.textContent = msg;
+            formStatus.style.color = ok ? '#ffffff' : '#ff8a80';
+            formStatus.style.marginTop = '20px';
+        };
+
+        contactForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            const btn = this.querySelector('button');
+            const name = this.elements['name'].value.trim();
+            const email = this.elements['email'].value.trim();
+            const message = this.elements['message'].value.trim();
+
+            if (!name || !message) return setStatus('Please fill in all the fields.', false);
+            if (!/^\S+@\S+\.\S+$/.test(email)) return setStatus('Please enter a valid email address.', false);
+            if (this.elements['_gotcha'] && this.elements['_gotcha'].value) return; // anti-spam : un robot a rempli le piège
+
+            const btn = this.querySelector('button[type="submit"]');
             const originalText = btn.innerText;
-
-            btn.innerText = "SENDING...";
-            btn.style.opacity = "0.7";
+            btn.innerText = 'SENDING...';
+            btn.style.opacity = '0.7';
             btn.disabled = true;
+            formStatus.textContent = '';
 
-            /* Version avec ton serveur Flask (à utiliser à la place du setTimeout ci-dessous) :
-            fetch('http://127.0.0.1:5000/send-email', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    message: document.getElementById('message').value
-                })
-            })
-            .then(response => response.json())
-            .then(data => { ...afficher succès ou erreur selon data.status... });
-            */
+            try {
+                const res = await fetch(this.action, {
+                    method: 'POST',
+                    body: new FormData(this),
+                    headers: { Accept: 'application/json' }
+                });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+
+                setStatus('Message sent. God bless you!', true);
+                btn.innerText = 'SENT ✅';
+                btn.style.backgroundColor = '#4CAF50';
+                btn.style.color = 'white';
+                this.reset();
+            } catch {
+                setStatus('Something went wrong. Please try again in a moment.', false);
+                btn.innerText = 'ERROR';
+                btn.style.backgroundColor = '#e53935';
+                btn.style.color = 'white';
+            }
 
             setTimeout(() => {
-                formStatus.innerHTML = "Message sent. God bless you!";
-                formStatus.style.color = "#ffffff";
-                formStatus.style.marginTop = "20px";
-
-                btn.innerText = "SENT ✅";
-                btn.style.backgroundColor = "#4CAF50";
-                btn.style.color = "white";
-
-                this.reset();
-
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.style.backgroundColor = "white";
-                    btn.style.color = "black";
-                    btn.style.opacity = "1";
-                    btn.disabled = false;
-                    formStatus.innerHTML = "";
-                }, 3000);
-            }, 2000);
+                btn.innerText = originalText;
+                btn.style.backgroundColor = 'white';
+                btn.style.color = 'black';
+                btn.style.opacity = '1';
+                btn.disabled = false;
+                formStatus.textContent = '';
+            }, 4000);
         });
     }
 
@@ -113,6 +126,12 @@ document.addEventListener('DOMContentLoaded', () => {
         backToTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+    }
+
+    // Mise à jour de l'année dans le footer
+    const yearSpan = document.getElementById('year');
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
     }
 
 
@@ -184,4 +203,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (session && session.name) accountLabel.textContent = session.name.split(' ')[0];
         } catch {}
     }
+
+    // 8. Page courante : met en évidence son lien dans la navbar
+    document.querySelectorAll('.nav-inline a').forEach(a => {
+        if (a.pathname === location.pathname) a.classList.add('active');
+    });
 });
