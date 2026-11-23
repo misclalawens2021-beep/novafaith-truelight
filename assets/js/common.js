@@ -136,7 +136,18 @@
         'co.color': ['Color', 'Couleur', 'Color', 'Farbe'],
         'color.black': ['Black', 'Noir', 'Negro', 'Schwarz'],
         'color.white': ['White', 'Blanc', 'Blanco', 'Weiß'],
-        'color.red': ['Red', 'Rouge', 'Rojo', 'Rot']
+        'color.red': ['Red', 'Rouge', 'Rojo', 'Rot'],
+        'footer.legal': ['Legal notice', 'Mentions légales', 'Aviso legal', 'Impressum'],
+        'legal.title': ['LEGAL NOTICE', 'MENTIONS LÉGALES', 'AVISO LEGAL', 'IMPRESSUM'],
+        'legal.edit.h': ['Publisher', 'Éditeur du site', 'Editor del sitio', 'Herausgeber'],
+        'legal.edit.p': ['This website is a personal, non-commercial project. Publisher and publication director:', 'Ce site est un projet personnel à but non commercial. Éditeur et directeur de la publication :', 'Este sitio web es un proyecto personal sin fines comerciales. Editor y director de la publicación:', 'Diese Website ist ein privates, nicht kommerzielles Projekt. Herausgeber und inhaltlich verantwortlich:'],
+        'legal.host.h': ['Hosting', 'Hébergement', 'Alojamiento', 'Hosting'],
+        'legal.data.h': ['Personal data', 'Données personnelles', 'Datos personales', 'Personenbezogene Daten'],
+        'legal.data.p': ['Accounts, carts and orders are stored only in your own browser (localStorage): nothing is sent to our servers and no tracking cookies are used. Messages sent through the contact form are processed by Formspree solely to answer you. Google/Facebook sign-in, if enabled, is handled by those providers. Fonts and icons are loaded from Google Fonts and jsDelivr. You can ask for a message to be deleted at any time through the contact form.', 'Les comptes, paniers et commandes sont enregistrés uniquement dans votre navigateur (localStorage) : rien n\'est envoyé à nos serveurs et aucun cookie de suivi n\'est utilisé. Les messages envoyés via le formulaire de contact sont traités par Formspree, uniquement pour vous répondre. La connexion Google/Facebook, si elle est activée, est gérée par ces fournisseurs. Les polices et icônes sont chargées depuis Google Fonts et jsDelivr. Vous pouvez demander la suppression d\'un message à tout moment via le formulaire de contact.', 'Las cuentas, los carritos y los pedidos se guardan solo en tu propio navegador (localStorage): no se envía nada a nuestros servidores y no se usan cookies de seguimiento. Los mensajes enviados por el formulario de contacto los trata Formspree únicamente para responderte. El inicio de sesión con Google/Facebook, si está activado, lo gestionan esos proveedores. Las fuentes y los iconos se cargan desde Google Fonts y jsDelivr. Puedes pedir que se elimine un mensaje en cualquier momento mediante el formulario de contacto.', 'Konten, Warenkörbe und Bestellungen werden nur in deinem eigenen Browser (localStorage) gespeichert: Es wird nichts an unsere Server gesendet und es werden keine Tracking-Cookies verwendet. Nachrichten über das Kontaktformular werden von Formspree ausschließlich verarbeitet, um dir zu antworten. Die Anmeldung mit Google/Facebook, falls aktiviert, wird von diesen Anbietern abgewickelt. Schriften und Icons werden von Google Fonts und jsDelivr geladen. Du kannst jederzeit über das Kontaktformular die Löschung einer Nachricht verlangen.'],
+        'legal.ip.h': ['Intellectual property', 'Propriété intellectuelle', 'Propiedad intelectual', 'Urheberrecht'],
+        'legal.ip.p': ['The NovaFaith name, logo, images and texts belong to the publisher. Any reproduction without prior permission is prohibited.', 'Le nom NovaFaith, le logo, les images et les textes appartiennent à l\'éditeur. Toute reproduction sans autorisation préalable est interdite.', 'El nombre NovaFaith, el logotipo, las imágenes y los textos pertenecen al editor. Queda prohibida cualquier reproducción sin autorización previa.', 'Der Name NovaFaith, das Logo, die Bilder und die Texte gehören dem Herausgeber. Jede Vervielfältigung ohne vorherige Erlaubnis ist untersagt.'],
+        'legal.contact.h': ['Contact', 'Contact', 'Contacto', 'Kontakt'],
+        'legal.contact.p': ['For any question, use the <a href="/assets/includes/contact.html">contact form</a>.', 'Pour toute question, utilisez le <a href="/assets/includes/contact.html">formulaire de contact</a>.', 'Para cualquier consulta, usa el <a href="/assets/includes/contact.html">formulario de contacto</a>.', 'Bei Fragen nutze bitte das <a href="/assets/includes/contact.html">Kontaktformular</a>.']
     };
 
     // Khmer (km) : ajouté en 5e position de chaque entrée [en, fr, es, de, km]
@@ -240,7 +251,18 @@
         'co.color': 'ពណ៌',
         'color.black': 'ខ្មៅ',
         'color.white': 'ស',
-        'color.red': 'ក្រហម'
+        'color.red': 'ក្រហម',
+        'footer.legal': 'ការជូនដំណឹងផ្លូវច្បាប់',
+        'legal.title': 'ការជូនដំណឹងផ្លូវច្បាប់',
+        'legal.edit.h': 'អ្នកបោះពុម្ពផ្សាយ',
+        'legal.edit.p': 'គេហទំព័រនេះជាគម្រោងផ្ទាល់ខ្លួនដែលមិនមែនសម្រាប់ពាណិជ្ជកម្ម។ អ្នកបោះពុម្ពផ្សាយ និងអ្នកទទួលខុសត្រូវលើខ្លឹមសារ៖',
+        'legal.host.h': 'ការបង្ហោះគេហទំព័រ',
+        'legal.data.h': 'ទិន្នន័យផ្ទាល់ខ្លួន',
+        'legal.data.p': 'គណនី កន្ត្រក និងការបញ្ជាទិញត្រូវបានរក្សាទុកតែក្នុងកម្មវិធីរុករករបស់អ្នកប៉ុណ្ណោះ (localStorage)៖ គ្មានអ្វីត្រូវបានផ្ញើទៅម៉ាស៊ីនមេរបស់យើងទេ ហើយក៏គ្មានការប្រើខូគីតាមដានដែរ។ សារដែលផ្ញើតាមទម្រង់ទំនាក់ទំនងត្រូវបានដំណើរការដោយ Formspree សម្រាប់តែឆ្លើយតបអ្នកប៉ុណ្ណោះ។ ការចូលតាម Google/Facebook ប្រសិនបើបើក ត្រូវបានគ្រប់គ្រងដោយអ្នកផ្តល់សេវាទាំងនោះ។ ពុម្ពអក្សរ និងរូបតំណាងត្រូវបានផ្ទុកពី Google Fonts និង jsDelivr។ អ្នកអាចស្នើសុំលុបសារណាមួយបានគ្រប់ពេលតាមទម្រង់ទំនាក់ទំនង។',
+        'legal.ip.h': 'កម្មសិទ្ធិបញ្ញា',
+        'legal.ip.p': 'ឈ្មោះ NovaFaith និមិត្តសញ្ញា រូបភាព និងអត្ថបទ ជាកម្មសិទ្ធិរបស់អ្នកបោះពុម្ពផ្សាយ។ ការចម្លងណាមួយដោយគ្មានការអនុញ្ញាតជាមុនត្រូវបានហាមឃាត់។',
+        'legal.contact.h': 'ទំនាក់ទំនង',
+        'legal.contact.p': 'សម្រាប់សំណួរណាមួយ សូមប្រើ<a href="/assets/includes/contact.html">ទម្រង់ទំនាក់ទំនង</a>។'
     };
     Object.keys(D).forEach(k => D[k].push(KM[k]));
 
