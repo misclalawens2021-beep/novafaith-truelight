@@ -1,4 +1,4 @@
-/* Outils communs : session, panier PAR COMPTE, et traduction (EN / FR / ES / DE) */
+/* Outils communs : session, panier PAR COMPTE, et traduction (EN / FR / ES / DE / KM) */
 (function () {
     const NF = window.NF = window.NF || {};
     const safe = (fn, fb) => { try { return fn(); } catch { return fb; } };
@@ -30,8 +30,8 @@
     };
     safe(() => localStorage.removeItem('novafaith-cart')); // ancien panier partagé par tout le navigateur
 
-    // ---------- Traductions : [en, fr, es, de] ----------
-    const LANGS = ['en', 'fr', 'es', 'de'];
+    // ---------- Traductions : [en, fr, es, de, km] ----------
+    const LANGS = ['en', 'fr', 'es', 'de', 'km'];
     const D = {
         'ui.top': ['Back to top', 'Retour en haut', 'Volver arriba', 'Nach oben'],
         'ui.image': ['Image', 'Image', 'Imagen', 'Bild'],
@@ -139,6 +139,112 @@
         'color.red': ['Red', 'Rouge', 'Rojo', 'Rot']
     };
 
+    // Khmer (km) : ajouté en 5e position de chaque entrée [en, fr, es, de, km]
+    const KM = {
+        'ui.top': 'ត្រឡប់ទៅខាងលើ',
+        'ui.image': 'រូបភាព',
+        'footer.rights': 'រក្សាសិទ្ធិគ្រប់យ៉ាង',
+        'nav.home': 'ទំព័រដើម',
+        'nav.about': 'តើ NovaFaith ជាអ្វី?',
+        'nav.collection': 'បណ្តុំ NovaFaith',
+        'nav.contact': 'ទាក់ទងខ្ញុំ',
+        'nav.account': 'គណនី',
+        'nav.orders': 'ការបញ្ជាទិញរបស់ខ្ញុំ',
+        'nav.login': 'ចូលគណនី',
+        'nav.cart': 'កន្ត្រក',
+        'nav.continue': 'បន្តទិញទំនិញ',
+        'home.welcome': 'សូមស្វាគមន៍មកកាន់',
+        'home.about.d': 'រឿងរ៉ាវ និងបេសកកម្មរបស់យើង។',
+        'home.coll.d': 'ស្វែងរកផលិតផលរបស់យើង។',
+        'home.contact.d': 'មានសំណួរអំពីម៉ាក ឬជំនឿរបស់អ្នកទេ?',
+        'about.etym': 'NovaFaith =<br>ការផ្ទុះនៃជំនឿ។',
+        'about.goal': 'គោលបំណងនៃម៉ាកនេះគឺដើម្បីបញ្ឆេះ និងផ្សព្វផ្សាយជំនឿរបស់យើងលើព្រះយេស៊ូវគ្រីស្ទ ដល់គ្រប់ជាតិសាសន៍ ដើម្បីឱ្យពួកគេបានក្លាយជាសិស្សរបស់ព្រះគ្រីស្ទ ហើយដឹងថា <strong>មនុស្សសុចរិតនឹងរស់ដោយសារជំនឿ។</strong>',
+        'coll.title': 'បណ្តុំ NOVAFAITH',
+        'coll.add': 'ដាក់ក្នុងកន្ត្រក',
+        'contact.title': 'ទាក់ទងខ្ញុំ',
+        'contact.sub': 'មានសំណួរអំពីបណ្តុំ ឬជំនឿរបស់អ្នកទេ? សូមផ្ញើសារមកយើង!',
+        'contact.send': 'ផ្ញើសារ',
+        'contact.social': 'បណ្តាញសង្គមរបស់ខ្ញុំ',
+        'contact.sending': 'កំពុងផ្ញើ...',
+        'contact.sent': 'បានផ្ញើ ✅',
+        'contact.error': 'មានបញ្ហា',
+        'contact.ok': 'បានផ្ញើសារហើយ។ សូមព្រះប្រទានពរដល់អ្នក!',
+        'contact.fail': 'មានបញ្ហាកើតឡើង។ សូមព្យាយាមម្តងទៀតបន្តិចទៀត។',
+        'err.fill': 'សូមបំពេញគ្រប់ប្រអប់។',
+        'err.email': 'សូមបញ្ចូលអាសយដ្ឋានអ៊ីមែលដែលត្រឹមត្រូវ។',
+        'ph.name': 'ឈ្មោះរបស់អ្នក',
+        'ph.email2': 'អ៊ីមែលរបស់អ្នក',
+        'ph.msg': 'តើយើងអាចជួយអ្វីអ្នកបាន?',
+        'ph.email': 'អ៊ីមែល',
+        'ph.pw': 'ពាក្យសម្ងាត់',
+        'ph.confirm': 'បញ្ជាក់ពាក្យសម្ងាត់',
+        'ph.fullname': 'ឈ្មោះពេញ',
+        'ph.address': 'អាសយដ្ឋាន',
+        'ph.zip': 'លេខកូដប្រៃសណីយ៍',
+        'ph.city': 'ទីក្រុង',
+        'ph.country': 'ប្រទេស',
+        'ph.cardname': 'ឈ្មោះលើកាត',
+        'ph.cardnum': 'លេខកាត',
+        'ph.exp': 'ខែ/ឆ្នាំ',
+        'auth.login': 'ចូលគណនី',
+        'auth.create': 'បង្កើតគណនី',
+        'auth.createTitle': 'បង្កើតគណនីរបស់អ្នក',
+        'auth.showpw': 'បង្ហាញពាក្យសម្ងាត់',
+        'auth.showpws': 'បង្ហាញពាក្យសម្ងាត់ទាំងអស់',
+        'auth.rules': 'យ៉ាងតិច ៨ តួអក្សរ រួមមានអក្សរមួយ និងលេខមួយ។',
+        'auth.btnLogin': 'ចូលគណនី',
+        'auth.btnCreate': 'បង្កើតគណនី',
+        'auth.btnLogout': 'ចាកចេញ',
+        'auth.demo': 'ការបង្ហាញគំរូ៖ គណនីត្រូវបានរក្សាទុកតែក្នុងកម្មវិធីរុករកនេះប៉ុណ្ណោះ។ ពាក្យសម្ងាត់មិនដែលត្រូវបានរក្សាទុកជាអក្សរច្បាស់ឡើយ។',
+        'auth.welcome': 'សូមស្វាគមន៍ {name}!',
+        'auth.or': 'ឬ',
+        'auth.google': 'បន្តជាមួយ Google',
+        'auth.facebook': 'បន្តជាមួយ Facebook',
+        'auth.err.secure': 'សូមបើកគេហទំព័រតាម https ឬ localhost ដើម្បីប្រើគណនី។',
+        'auth.err.cred': 'សូមបញ្ចូលអ៊ីមែល និងពាក្យសម្ងាត់របស់អ្នក។',
+        'auth.err.wrong': 'អ៊ីមែល ឬពាក្យសម្ងាត់មិនត្រឹមត្រូវ។',
+        'auth.err.name': 'សូមបញ្ចូលឈ្មោះពេញរបស់អ្នក។',
+        'auth.err.pw': 'ពាក្យសម្ងាត់ត្រូវមានយ៉ាងតិច ៨ តួអក្សរ រួមមានអក្សរមួយ និងលេខមួយ។',
+        'auth.err.match': 'ពាក្យសម្ងាត់មិនដូចគ្នាទេ។',
+        'auth.err.exists': 'មានគណនីមួយរួចហើយជាមួយអ៊ីមែលនេះ។',
+        'auth.err.save': 'មិនអាចរក្សាទុកគណនីក្នុងកម្មវិធីរុករកនេះបានទេ។',
+        'auth.err.social': 'ការចូលតាម {p} មិនទាន់អាចប្រើបានទេនៅពេលនេះ។ សូមប្រើអ៊ីមែល និងពាក្យសម្ងាត់របស់អ្នក។',
+        'auth.err.socialFail': 'ការចូលបរាជ័យ។ សូមព្យាយាមម្តងទៀត។',
+        'co.title': 'ការទូទាត់',
+        'co.empty': 'កន្ត្រករបស់អ្នកទទេ។',
+        'co.back': 'ត្រឡប់ទៅបណ្តុំវិញ',
+        'co.thanks': 'សូមអរគុណសម្រាប់ការបញ្ជាទិញរបស់អ្នក!',
+        'co.orderPre': 'ការបញ្ជាទិញ',
+        'co.orderPost': 'ត្រូវបានដាក់រួចរាល់។ សូមព្រះប្រទានពរដល់អ្នក!',
+        'co.viewOrders': 'មើលការបញ្ជាទិញរបស់ខ្ញុំ',
+        'co.home': 'ត្រឡប់ទៅទំព័រដើម',
+        'co.items': '1. ទំនិញរបស់អ្នក',
+        'co.ship': '2. អាសយដ្ឋានដឹកជញ្ជូន',
+        'co.pay': '3. ការទូទាត់ប្រាក់',
+        'co.note': 'ការទូទាត់សាកល្បង៖ គ្មានការបង់ប្រាក់ពិតប្រាកដទេ ហើយព័ត៌មានកាតមិនដែលត្រូវបានរក្សាទុកឡើយ។',
+        'co.summary': 'សង្ខេបការបញ្ជាទិញ',
+        'co.sumItems': 'ទំនិញ',
+        'co.sumShip': 'ការដឹកជញ្ជូន',
+        'co.total': 'សរុប',
+        'co.place': 'បញ្ជាទិញឥឡូវនេះ',
+        'co.remove': 'ដកចេញ',
+        'co.free': 'ឥតគិតថ្លៃ',
+        'co.freeOk': 'ការបញ្ជាទិញរបស់អ្នកទទួលបានការដឹកជញ្ជូនឥតគិតថ្លៃ។',
+        'co.freeFrom': 'ដឹកជញ្ជូនឥតគិតថ្លៃចាប់ពី {min} (នៅសល់ {left})។',
+        'co.processing': 'កំពុងដំណើរការ...',
+        'co.err.card': 'លេខកាតមិនត្រឹមត្រូវទេ។',
+        'co.err.exp': 'កាលបរិច្ឆេទផុតកំណត់មិនត្រឹមត្រូវទេ។',
+        'co.err.cvc': 'លេខ CVC មិនត្រឹមត្រូវទេ។',
+        'orders.empty': 'អ្នកមិនទាន់បានបញ្ជាទិញអ្វីទេ។',
+        'orders.discover': 'ស្វែងរកបណ្តុំ',
+        'co.color': 'ពណ៌',
+        'color.black': 'ខ្មៅ',
+        'color.white': 'ស',
+        'color.red': 'ក្រហម'
+    };
+    Object.keys(D).forEach(k => D[k].push(KM[k]));
+
+
     let lang = safe(() => localStorage.getItem('novafaith-lang'), null);
     if (!LANGS.includes(lang)) {                       // 1re visite : langue du navigateur si elle est gérée
         const n = (navigator.language || 'en').slice(0, 2).toLowerCase();
@@ -147,7 +253,7 @@
 
     NF.lang = () => lang;
     NF.colorName = (id, fallback) => (D['color.' + id] ? NF.t('color.' + id) : (fallback || id));
-    NF.locale = () => ({ en: 'en-GB', fr: 'fr-FR', es: 'es-ES', de: 'de-DE' })[lang];
+    NF.locale = () => ({ en: 'en-GB', fr: 'fr-FR', es: 'es-ES', de: 'de-DE', km: 'km-KH' })[lang];
     NF.t = (key, vars) => {
         const e = D[key];
         let s = e ? (e[LANGS.indexOf(lang)] || e[0]) : key;

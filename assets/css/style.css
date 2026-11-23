@@ -1702,3 +1702,15 @@ html.leaving main, html.leaving footer {            /* départ vers une autre pa
 @media (max-width: 600px) {
     .zoom-box { width: 96px; height: 96px; }
 }
+
+/* Khmer : Montserrat n'a pas de glyphes khmers, on ajoute Noto Sans Khmer en repli */
+html[lang="km"] body,
+html[lang="km"] button,
+html[lang="km"] input,
+html[lang="km"] textarea,
+html[lang="km"] h1, html[lang="km"] h2, html[lang="km"] h3, html[lang="km"] h4,
+html[lang="km"] .page-title {
+    font-family: 'Montserrat', 'Noto Sans Khmer', 'Khmer OS', 'Leelawadee UI', sans-serif;
+    letter-spacing: normal;
+    line-height: 1.7;
+}
