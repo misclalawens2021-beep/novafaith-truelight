@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Identifiants Google / Facebook : renseignés une fois par le développeur dans config.js
     const CFG = window.NF_CONFIG || {};
     const GOOGLE_CLIENT_ID = CFG.GOOGLE_CLIENT_ID || '713130786067-98n3fcgbd15pp96s0bui2g5dr8c6efu1.apps.googleusercontent.com';
-    const FACEBOOK_APP_ID = CFG.FACEBOOK_APP_ID || '';
+    // const FACEBOOK_APP_ID = CFG.FACEBOOK_APP_ID || '';
 
     const USERS_KEY = 'novafaith-users';
     const SESSION_KEY = 'novafaith-session';

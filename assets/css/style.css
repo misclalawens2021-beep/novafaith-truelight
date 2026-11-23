@@ -1723,3 +1723,112 @@ html[lang="km"] .page-title {
 .legal-content h2 { font-size: 1.15rem; letter-spacing: 1px; margin: 0 0 8px; }
 .legal-content p { margin: 0; opacity: 0.9; }
 .legal-content a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* =========================================
+   PASSE RESPONSIVE : toutes tailles d'écran
+   (placée en dernier pour l'emporter sur les règles plus anciennes)
+========================================= */
+img, svg, video { max-width: 100%; }
+h1, h2, h3, h4, p { overflow-wrap: break-word; }
+
+/* Hauteur d'écran réelle sur mobile (la barre d'adresse ne coupe plus le contenu) */
+.hero { min-height: 100vh; min-height: 100svh; }
+
+/* Titres : la taille et l'espacement des lettres suivent la largeur de l'écran */
+.page-title { font-size: clamp(1.3rem, 6vw, 2rem); letter-spacing: clamp(1px, 1.2vw, 5px); }
+.checkout-title { font-size: clamp(1.5rem, 7vw, 2rem); letter-spacing: clamp(1px, 1.2vw, 5px); }
+.welcome-to h3, .hero-welcome { font-size: clamp(1.15rem, 5vw, 2rem); letter-spacing: clamp(2px, 1.2vw, 5px); }
+/* Le texte de présentation héritait de « .welcome-to h3 » (2rem, marges de 100px) */
+.about .description h3 {
+    font-size: clamp(1rem, 2.6vw, 2rem);
+    letter-spacing: clamp(1px, 0.35vw, 5px);
+    line-height: 1.5;
+    margin-top: clamp(24px, 5vw, 100px);
+    margin-bottom: clamp(24px, 5vw, 100px);
+}
+
+/* Page de paiement : la colonne du récapitulatif ne doit jamais faire déborder la page */
+.checkout-layout { grid-template-columns: minmax(0, 1fr) minmax(280px, 340px); }
+.checkout-layout > * { min-width: 0; }
+.cart-info { min-width: 0; }
+
+/* Tablettes et petits portables (jusqu'à 900 px) */
+@media (max-width: 900px) {
+    .checkout-layout { grid-template-columns: minmax(0, 1fr); }
+    .co-summary { position: static; }
+    .about {
+        flex-direction: column;
+        gap: 30px;
+        padding: 0 20px;
+        margin-top: 50px;
+    }
+    .about .description { width: 100%; }
+    .about-image { flex: none; width: 100%; max-width: 380px; }
+}
+
+/* Mobile (jusqu'à 768 px) */
+@media (max-width: 768px) {
+    /* la pilule garde l'icône « accueil » à gauche, les autres liens sont dans le menu plein écran */
+    .nav-inline { display: flex; }
+    .nav-inline li:not(:first-child) { display: none; }
+
+    /* 16 px minimum dans les champs : iOS ne zoome plus sur la page au clic */
+    input, textarea, select { font-size: 16px; }
+
+    /* menu plein écran : défile si l'écran est trop court (paysage, petits téléphones) */
+    .nav-overlay { height: 100vh; height: 100dvh; overflow-y: auto; align-items: flex-start; }
+    .nav-links { margin: auto; padding: 90px 20px 30px; width: 100%; }
+    .nav-links li { margin: clamp(10px, 3vh, 25px) 0; }
+    .nav-links a { font-size: clamp(1.1rem, 5.5vw, 2rem); letter-spacing: clamp(2px, 1vw, 5px); }
+    .nav-links a:hover { letter-spacing: clamp(2px, 1vw, 5px); }
+    .nav-links .nav-lang { flex-wrap: wrap; margin-top: 18px; }
+}
+
+/* Téléphones (jusqu'à 600 px) */
+@media (max-width: 600px) {
+    .co-grid { grid-template-columns: minmax(0, 1fr); }
+    .co-grid .span-2 { grid-column: auto; }
+    .co-block, .co-summary { padding: 18px; }
+    /* ligne du panier : image + infos sur la 1re ligne, quantité + « Retirer » sur la 2e */
+    .cart-row { gap: 12px; flex-wrap: wrap; }
+    .cart-row .cart-info { flex: 1 1 calc(100% - 110px); }
+    .cart-row .remove { margin-left: auto; }
+    .order-row { flex-wrap: wrap; }
+    .order-name { min-width: 0; }
+    .home-links { grid-template-columns: minmax(0, 1fr); padding: 0 16px; }
+    .legal-content { padding: 0 16px; }
+}
+
+/* Petits téléphones (jusqu'à 480 px) */
+@media (max-width: 480px) {
+    .lm { padding: 14px 18px; }
+    .contact-container .lm { width: 100%; }
+    .auth-actions .lm { flex: 1 1 100%; text-align: center; }
+    .auth-tabs button { padding-left: 8px; padding-right: 8px; }
+    .rs-btn, .contact-row .rs-btn { width: 64px; height: 64px; }
+    footer { padding: 16px; }
+}
+
+/* Écrans tactiles : cibles plus grandes pour le doigt */
+@media (pointer: coarse) {
+    .swatch { width: 32px; height: 32px; }
+    .qty button, .remove { min-height: 40px; min-width: 40px; }
+    .lang-menu button, .nav-lang button { min-height: 44px; }
+}
+
+/* Téléphone en mode paysage : peu de hauteur */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero { min-height: auto; padding-top: 90px; }
+    .nav-links { padding-top: 76px; }
+    .nav-links li { margin: 5px 0; }
+    .nav-links a { font-size: 1.1rem; }
+    .nav-links .nav-lang { margin-top: 8px; }
+}
+
+/* Très grands écrans : texte un peu plus grand pour rester lisible */
+@media (min-width: 1920px) {
+    html { font-size: 112.5%; }
+}
+
+/* Bouton menu ouvert : l'icône passe en noir sur le fond blanc (sinon elle disparaît) */
+.hamburger-menu.active i { color: #000; }
