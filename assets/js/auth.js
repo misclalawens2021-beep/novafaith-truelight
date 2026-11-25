@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Identifiants Google / Facebook : renseignés une fois par le développeur dans config.js
+    // Identifiant Google : renseigné une fois par le développeur dans config.js
     const CFG = window.NF_CONFIG || {};
     const GOOGLE_CLIENT_ID = CFG.GOOGLE_CLIENT_ID || '713130786067-98n3fcgbd15pp96s0bui2g5dr8c6efu1.apps.googleusercontent.com';
-    // const FACEBOOK_APP_ID = CFG.FACEBOOK_APP_ID || '';
 
     const USERS_KEY = 'novafaith-users';
     const SESSION_KEY = 'novafaith-session';
@@ -95,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!/^\S+@\S+\.\S+$/.test(email) || !password) return setError('login-error', 'auth.err.cred');
 
         const user = readUsers().find(u => u.email === email);
-        // un compte créé via Google/Facebook n'a pas de mot de passe
+        // un compte créé via Google n'a pas de mot de passe
         if (!user || !user.hash) return setError('login-error', 'auth.err.wrong');
         if (await hashPassword(password, user.salt) !== user.hash) return setError('login-error', 'auth.err.wrong');
         startSession(user);
@@ -132,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startSession(user);
     });
 
-    // --- Connexion via un fournisseur (Google, Facebook) ---
+    // --- Connexion via Google ---
     function socialSignIn(profile, provider) {
         const email = String(profile.email || '').trim().toLowerCase();
         if (!email) return setError('social-error', 'auth.err.socialFail');
@@ -174,23 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!GOOGLE_CLIENT_ID) return setError('social-error', 'auth.err.social', { p: 'Google' });
         if (!googleClient) return setError('social-error', 'auth.err.socialFail');
         googleClient.requestAccessToken();
-    });
-
-    let facebookReady = false;
-    if (FACEBOOK_APP_ID) {
-        loadScript('https://connect.facebook.net/en_US/sdk.js').then(() => {
-            FB.init({ appId: FACEBOOK_APP_ID, version: 'v19.0', cookie: false, xfbml: false });
-            facebookReady = true;
-        }).catch(() => {});
-    }
-    $('facebook-btn').addEventListener('click', () => {
-        setError('social-error', null);
-        if (!FACEBOOK_APP_ID) return setError('social-error', 'auth.err.social', { p: 'Facebook' });
-        if (!facebookReady) return setError('social-error', 'auth.err.socialFail');
-        FB.login(r => {
-            if (!r.authResponse) return setError('social-error', 'auth.err.socialFail');
-            FB.api('/me', { fields: 'name,email' }, u => (u && u.email) ? socialSignIn(u, 'facebook') : setError('social-error', 'auth.err.socialFail'));
-        }, { scope: 'public_profile,email' });
     });
 
     // --- Déconnexion ---

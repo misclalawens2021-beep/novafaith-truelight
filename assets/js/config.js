@@ -8,5 +8,4 @@
               puis copie l'« ID de l'application » et ajoute ton domaine dans les paramètres. */
 window.NF_CONFIG = {
     GOOGLE_CLIENT_ID: '713130786067-98n3fcgbd15pp96s0bui2g5dr8c6efu1.apps.googleusercontent.com',
-    // FACEBOOK_APP_ID: ''
 };
