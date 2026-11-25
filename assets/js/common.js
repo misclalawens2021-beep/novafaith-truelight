@@ -304,7 +304,25 @@
         apply();
     };
 
-    document.addEventListener('DOMContentLoaded', () => {
+    // ---------- Parties communes : header.html et footer.html ----------
+    // Chaque <div data-include="/chemin/fichier.html"> est remplacé par le contenu de ce fichier.
+    // NF.ready(fn) lance fn quand la page ET ces parties sont prêtes : à utiliser À LA PLACE de
+    // document.addEventListener('DOMContentLoaded', ...) pour tout script qui touche à la navbar ou au footer.
+    const loadIncludes = () => Promise.all([...document.querySelectorAll('[data-include]')].map(async el => {
+        try {
+            const res = await fetch(el.dataset.include);
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            el.outerHTML = await res.text();
+        } catch (err) { console.warn('Partie commune introuvable :', el.dataset.include, err); }
+    }));
+    const domReady = new Promise(resolve => {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', resolve);
+        else resolve();
+    });
+    const ready = domReady.then(loadIncludes);
+    NF.ready = fn => { ready.then(() => fn()); };
+
+    NF.ready(() => {
         apply();
 
         const btn = document.getElementById('lang-btn');
@@ -342,4 +360,4 @@
         NF.go(u.href);
     });
     window.addEventListener('pageshow', e => { if (e.persisted) document.documentElement.classList.remove('leaving'); });
-})();
+})();  

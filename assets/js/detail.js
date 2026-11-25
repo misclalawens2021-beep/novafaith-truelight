@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+NF.ready(() => {
     // Il faut un compte pour commander : sinon page d'authentification
     const session = NF.session();
     if (!session) {

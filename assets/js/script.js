@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+NF.ready(() => {
     // 1. Couleurs + panier (un panier par compte)
     const cartBadge = document.getElementById('cart-count');
     if (cartBadge) cartBadge.textContent = NF.readCart().reduce((n, i) => n + (i.qty || 0), 0);
@@ -212,7 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 8. Page courante : met en évidence son lien dans la navbar
-    document.querySelectorAll('.nav-inline a').forEach(a => {
-        if (a.pathname === location.pathname) a.classList.add('active');
+    const here = location.pathname.replace(/\/$/, '/index.html');   // « / » = accueil
+    document.querySelectorAll('.nav-inline a, .footer-nav a').forEach(a => {
+        if (a.pathname === here) a.classList.add('active');
     });
 });

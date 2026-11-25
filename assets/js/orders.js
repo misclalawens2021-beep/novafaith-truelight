@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+NF.ready(() => {
     // Il faut être connecté pour voir ses commandes
     const session = NF.session();
     if (!session) {
