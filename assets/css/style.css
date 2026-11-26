@@ -622,6 +622,8 @@ h1, h2, h3, h4 {
 footer {
     padding: 20px;
     font-size: 0.9rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 
@@ -1833,12 +1835,33 @@ h1, h2, h3, h4, p { overflow-wrap: break-word; }
 /* Bouton menu ouvert : l'icône passe en noir sur le fond blanc (sinon elle disparaît) */
 .hamburger-menu.active i { color: #000; }
 
-/* Footer : liens de navigation (mêmes pages que la barre du haut) */
+/* Footer : liens de navigation */
 .footer-nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     flex-direction: column;
+    text-align: center;
+    gap: 10px 26px;
+    margin: 0 auto 16px;
+    max-width: 1100px;
+}
+.footer-nav1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px 26px;
+    margin: 0 auto 16px;
+    max-width: 1100px;
+}
+.footer-nav2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
     gap: 10px 26px;
     margin: 0 auto 16px;
     max-width: 1100px;
@@ -1854,11 +1877,45 @@ h1, h2, h3, h4, p { overflow-wrap: break-word; }
     padding: 4px 0;
     transition: opacity 0.2s;
 }
+.footer-nav1 a {
+    color: inherit;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    opacity: 0.75;
+    padding: 4px 0;
+    transition: opacity 0.2s;
+}
+.footer-nav2 a {
+    color: inherit;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    opacity: 0.75;
+    padding: 4px 0;
+    transition: opacity 0.2s;
+}
 .footer-nav a:hover, .footer-nav a:focus-visible, .footer-nav a.active { opacity: 1; }
-.footer-nav a.active { text-decoration: underline; text-underline-offset: 5px; }
+/* .footer-nav a.active { text-decoration: none; text-underline-offset: 5px; } */
 @media (max-width: 480px) {
     .footer-nav { gap: 6px 18px; }
     .footer-nav a { font-size: 0.75rem; }
+}
+.footer-nav1 a:hover, .footer-nav1 a:focus-visible, .footer-na1 a.active { opacity: 1; }
+/* .footer-nav1 a.active { text-decoration: none; text-underline-offset: 5px; } */
+@media (max-width: 480px) {
+    .footer-nav1 { gap: 6px 18px; }
+    .footer-nav1 a { font-size: 0.75rem; }
+}
+.footer-nav2 a:hover, .footer-nav2 a:focus-visible, .footer-nav2 a.active { opacity: 1; }
+/* .footer-nav2 a.active { text-decoration: none; text-underline-offset: 5px; } */
+@media (max-width: 480px) {
+    .footer-nav2 { gap: 6px 18px; }
+    .footer-nav2 a { font-size: 0.75rem; }
 }
 
 /* Mobile : on laisse la place du bouton « retour en haut » sous le texte du footer */
