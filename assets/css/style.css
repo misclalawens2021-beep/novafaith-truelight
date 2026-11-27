@@ -622,6 +622,8 @@ h1, h2, h3, h4 {
 footer {
     padding: 20px;
     font-size: 0.9rem;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
 
 
@@ -1835,12 +1837,12 @@ h1, h2, h3, h4, p { overflow-wrap: break-word; }
 
 /* Footer : liens de navigation (mêmes pages que la barre du haut) */
 .footer-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px 26px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));   /* 2 lignes de 3 liens */
+    gap: 12px 24px;
     margin: 0 auto 16px;
-    max-width: 1100px;
+    max-width: 760px;
+    text-align: center;
 }
 .footer-nav a {
     color: inherit;
@@ -1856,8 +1858,8 @@ h1, h2, h3, h4, p { overflow-wrap: break-word; }
 .footer-nav a:hover, .footer-nav a:focus-visible, .footer-nav a.active { opacity: 1; }
 .footer-nav a.active { text-decoration: underline; text-underline-offset: 5px; }
 @media (max-width: 480px) {
-    .footer-nav { gap: 6px 18px; }
-    .footer-nav a { font-size: 0.75rem; }
+    .footer-nav { gap: 10px 8px; }
+    .footer-nav a { font-size: 0.7rem; letter-spacing: 0.5px; overflow-wrap: break-word; }
 }
 
 /* Mobile : on laisse la place du bouton « retour en haut » sous le texte du footer */
